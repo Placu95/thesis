@@ -6,14 +6,49 @@
 
 % This section is likely to contain a lot of citations.
 % %
-% For instance in \cite{AnzengruberSocInfo2013} the authors propose a novel means for tackling with the problem of preventing bad things from happening.
+% For instance in ~\cite{AnzengruberSocInfo2013} the authors propose a novel means for tackling with the problem of preventing bad things from happening.
 \section{Aggregate Computing}
+Recent technological developments led to computational and networking capabilities being more and more integrated with everyday objects. 
+% 
+Not only personal smartphone but also the all set of wearable device, drones, smart vehicular system, domestic appliances and more generally all kind of sensor and actuator.
+% 
+This development led to design distributed system with always more and different devices (mainly for computational capability and communication technology) producing pervasive heterogeneous and complex system.
+% 
+The classic approach for distributed system proposes a device-centric viewpoint. 
+% 
+The goal is to obtain the global behaviour as emergent phenomena from the interaction of the single device. 
+% 
+So the focus of the designer is on local structure, behaviour and interaction. 
+% 
+The final result is typically a system strongly dependent on communication technology that tend to be rigid and costly to testing, evolve and maintain.
+% 
+Aggregate computing is an emerging programming paradigm devoted to modern distributed systems~\cite{BealIEEEComputer2015}, which propose a shift of paradigm and viewpoint respect the problem. 
+% 
+It proposes an aggregate viewpoint where the programmable entity is the entire set of devices.
+% 
+The goal is to define the global behaviour in a declarative way focusing on manipulation of spatial and temporal data structure, allowing the designer to abstract from the real device that will execute the program, its communication capability and the network infrastructure. 
+% 
+The final result will be a complex, modular, extendible, self-adaptive and self-organized distributed system.
+% 
+The aggregate computing approach offers base functionalities that are combinable with each others to assemble advanced and user-friendly APIs. In order to organize all the provided functionalities is designed a multi-layer stack that gather all them for level of abstraction. 
+
+
+
+
+% molti dispositivi connessi (esempi) con trend sempre in aumento (img), dispositivi diversi per capacità computazionali ma anche comunicative
+% l'approccio classico ai sistemi distrivuiti pervasivi propone un approccio device-centric (ma...tutti i contro).
+% AC propone un approccio top-down, descrizione della soluzione a livello globale astraendo da chi sono i dispositivi, dove eseguono e come comunicano. il focus deve essere....
+% API per facilitare sviluppatore (con immagine)
+
+
+
+
 \subsection{Field-calculus}
 \subsection{Protelis}
 
 \section{LoRaWAN}
 % (what is and network architecture)
-LoRaWAN\cite{loraalliancetechnicalcommittee2020} is a network protocol optimized for long-range communication with low energy consumption, but with the drawback of short and not frequent messages.
+LoRaWAN~\cite{loraalliancetechnicalcommittee2020} is a network protocol optimized for long-range communication with low energy consumption, but with the drawback of short and not frequent messages.
 
 A LoRaWAN network, \autoref{fig:LoRaNetwork}, is composed of three fundamental elements: end-device (aka motes), gateway (aka concentrators) and a network-server. 
 % 
@@ -24,7 +59,7 @@ The communication between gateway and network-server is IP-based, while the comm
 \begin{figure}[h]
     \centering
     \includegraphics{figures/lora_architecture2.png}
-    \caption{LoRaWAN network architecture\cite{muntasirjoarder2020} with all the fundamental elements. Straight line represent IP-based communication, while the circle around the gateways is the communication range with LoRa protocol.}
+    \caption{LoRaWAN network architecture~\cite{muntasirjoarder2020} with all the fundamental elements. Straight line represent IP-based communication, while the circle around the gateways is the communication range with LoRa protocol.}
     \label{fig:LoRaNetwork}
 \end{figure}
 
@@ -37,7 +72,7 @@ The LoRaWAN protocol, \autoref{fig:LoRaStack}, is composed of two layers: the  p
 \begin{figure}[h]
     \centering
     \includegraphics{figures/loraStack.png}
-    \caption{LoRaWAN protocol stack\cite{loraalliance2020} where brown rectangle represent the physical layer and the azures rectangles the MAC one.}
+    \caption{LoRaWAN protocol stack~\cite{loraalliance2020} where brown rectangle represent the physical layer and the azures rectangles the MAC one.}
     \label{fig:LoRaStack}
 \end{figure}
 
@@ -86,7 +121,7 @@ An example of LoRa-over-MQTT architecture is ChirpStack\footnote{\href{https://w
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/chirpstack.png}
-    \caption{Example of the LoRa-over-MQTT architecture of ChirpStack.\cite{chirpstack2020}}
+    \caption{Example of the LoRa-over-MQTT architecture of ChirpStack.~\cite{chirpstack2020}}
     \label{fig:ChirpStack}
 \end{figure}
 
@@ -94,7 +129,7 @@ DingNet\footnote{\href{https://admin.kuleuven.be/icts/english/services/dingnet}{
 % 
 DingNet allows adding user's devices and applications to the network for research porpoise.
 % 
-Last year was introduced the DingNet Simulator\cite{inproceedings} to allow simulation of application in different scenarios before deploying it in the real network to reduce costs and time for the deploy.
+Last year was introduced the DingNet Simulator~\cite{inproceedings} to allow simulation of application in different scenarios before deploying it in the real network to reduce costs and time for the deploy.
 % 
 It is a time-driven simulator focused on the simulation of LoRa communications between gateways and mote while the rest of the network is simulated whit a high-level abstraction. 
 % 
