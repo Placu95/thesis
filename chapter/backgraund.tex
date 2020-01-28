@@ -14,37 +14,62 @@ Not only personal smartphone but also the all set of wearable device, drones, sm
 % 
 This development led to design distributed system with always more and different devices (mainly for computational capability and communication technology) producing pervasive heterogeneous and complex system.
 % 
-The classic approach for distributed system proposes a device-centric viewpoint. 
+The classic approach for distributed system proposes a device-centric viewpoint.
 % 
 The goal is to obtain the global behaviour as emergent phenomena from the interaction of the single device. 
 % 
 So the focus of the designer is on local structure, behaviour and interaction. 
 % 
 The final result is typically a system strongly dependent on communication technology that tend to be rigid and costly to testing, evolve and maintain.
-% 
+ 
 Aggregate computing is an emerging programming paradigm devoted to modern distributed systems~\cite{BealIEEEComputer2015}, which propose a shift of paradigm and viewpoint respect the problem. 
 % 
 It proposes an aggregate viewpoint where the programmable entity is the entire set of devices.
 % 
-The goal is to define the global behaviour in a declarative way focusing on manipulation of spatial and temporal data structure, allowing the designer to abstract from the real device that will execute the program, its communication capability and the network infrastructure. 
+The goal is to define the global behaviour in a declarative\todo{is true?} way focusing on manipulation of spatial and temporal data structure, allowing the designer to abstract from the real device that will execute the program, its communication capability, and the network infrastructure. 
 % 
 The final result will be a complex, modular, extendible, self-adaptive and self-organized distributed system.
 % 
 The aggregate computing approach offers base functionalities that are combinable with each others to assemble advanced and user-friendly APIs. In order to organize all the provided functionalities is designed a multi-layer stack that gather all them for level of abstraction. 
+As is possible seeing from the stack, \autoref{fig:ACstack}, the base constructs are based on the \textit{field calculus} theory.
 
-
-
-
-% molti dispositivi connessi (esempi) con trend sempre in aumento (img), dispositivi diversi per capacità computazionali ma anche comunicative
-% l'approccio classico ai sistemi distrivuiti pervasivi propone un approccio device-centric (ma...tutti i contro).
-% AC propone un approccio top-down, descrizione della soluzione a livello globale astraendo da chi sono i dispositivi, dove eseguono e come comunicano. il focus deve essere....
-% API per facilitare sviluppatore (con immagine)
-
-
-
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/ACstack.png}
+    \caption{Aggregate programming stack.~\cite{BealIEEEComputer2015}}
+    \label{fig:ACstack}
+\end{figure}
 
 \subsection{Field-calculus}
+
+Field calculus is a theoretical model that describe a set of primitive to manipulate the concept of \textit{computational field}. A computational field is a distributed data structure that maps every networked device to some local value. In field calculus everything is a field (value, variable, expression, function) and the constructs to build and manipulate it are:
+\begin{itemize}
+    \item \textbf{Functions}, $b(e1,...,e_n)$ applies function $b$ to arguments $e1,...,e_n$. The output field is obtained by the point-wise evaluation of the operator to the input fields.
+    \item \textbf{Stateful computation}, $rep(x \leftarrow v)~\{s1; ... ; s_n\}$ a local variable $x$ is defined and initialized to value $v$. Then the value is periodically updated with the result of statements $s1; ... ; s_n$.
+    \item \textbf{Interaction}, $nbr(s)$ share the local value of $s$, represented as a field, with the neighbors. The result is a field of fields (the same information shared from the neighbors) that is possible to reduce to a simple field using \textit{hood} operators. 
+    \item \textbf{Domain restriction}, $if(e)~\{s1; ... ; s_n\}~else~\{s'_1; ... ; s'_n\}$ split the field in two sub-field according to the evaluation of $e$. Where $e$ is true is applied the statement $s1; ... ; s_n$, while where $e$ is false is applied the statement $s'_1; ... ; s'_n$
+\end{itemize}
+
+The behavior of aggregate systems can be expressed as a functional composition of operators that manipulate (evolve, combine, restrict) computational fields~\cite{type-sound}. \todo[inline]{parlare di higher-order field calculus?}
+
+\subsection{Building blocks operators}
+Basic field calculus constructors are low level operators and led to an error prone programming. In order to limit the use of this operators,~\cite{buildingBlock} present the set of building block that compose the central layer of the aggregate programming stack, \autoref{fig:ACstack}. This functionalities are then available as library function defined on top of the low level operators. The principal functions presented are:
+
+\begin{itemize}
+    \item $G(source, init, metric, accumulate) \rightarrow$ function to spreading information across space. First build a field of shortest path that start from $source$ with the chosen $metric$. Then spread the information across the field starting from the $init$ value and modifying it at each step whit the $accumulate$ function
+    \item $C(potential, reduce, local, null) \rightarrow$ function to accumulates $local$ value along the $potential$ field until the source. The final value is obtained applying the $reduce$ function to the $local$ value of the crossed nodes. If there is nothing to accumulate is returned the default value $null$
+    \item $T(init, zero, decay)  \rightarrow$ function to evolve the state for a specified period. The period start from $init$ and decrease until $zero$ with a $decay$ rate.
+    \item $S(grain, metric)  \rightarrow$ function to split the network in partitions of nodes. This function uses the $metric$ function to define the sets of nodes of size $grain$ and elects a leader for each partition.
+\end{itemize}
+
+Reduce the possibility to make mistake with low-level operators is not the only advantage in using this building block, but this functions are also complementary and combining them differently is possible to implement all the principal coordination patterns for distributed system. Finally, an other advantage is that these functions are self-stabilizing and consequently systems build on top of these functions will be self-stabilizing. In complex system, self-stabilizing property guarantee that after each transitory phase, the system return to a stationary state, where is possible predict its behaviour.
+
+
 \subsection{Protelis}
+
+
+% linguaggio per field calculus, supporta HFC, inspirato a proto, completamente funzionale, sintassi Java-like, completa interoperabilità con il mondo java, fornisce supporto per tutto lo stack AC, ExecContext e NetManager, esegue su JVM così da garantire interoperabilità
+
 
 \section{LoRaWAN}
 % (what is and network architecture)
