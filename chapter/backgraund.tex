@@ -67,12 +67,12 @@ Reduce the possibility to make mistake with low-level operators is not the only 
 \subsection{Protelis}
 \label{subSec:Protelis}
 Protelis~\cite{PianiniSAC2015} is a language designed for the ``aggregate computing" paradigm built on field calculus and inspired on Proto~\cite{Proto}. 
-It offers an implementation of the entire aggregate computing stack and support for high-order field calculus~\cite{ViroliTOCL2016}, that introduces functions as first-class citizen with a lot of benefits.
+It offers an implementation of the entire aggregate computing stack, and support for high-order field calculus~\cite{ViroliTOCL2016}, that introduces functions as first-class citizen with a lot of benefits.
 Protelis adopts a C- or Java-like syntax to reduce learning care, but it is a pure functional language.
 Aggregate computing is a paradigm for heterogeneous distributed system, so one important requirement for language for this paradigm is interoperability.
 Protelis absolves it because it is executed on the Java Virtual Machine that guarantee interoperability, but this means also full interoperability with Java world and access to all the plethora of its library.
 Accordingly to aggregate programming principles a Protelis program abstract from implementation of device capabilities, real network topology and technology. To fill this abstraction gap Protelis require to implement a back-end for every node of the system.
-It require the implementation of two interface \textit{ExecutionContext} and \textit{NetworkManager}. The first represents the context of the node (similar to \textit{System} or \textit{Runtime} in Java) and require the implementation of some function; it is the entry point for specific device capabilities and spatio-temporal information on the node. The second requires the implementation of two methods to enable the communication with the other nodes filling the abstraction gap between real and logical network.
+It require the implementation of two interface \textit{ExecutionContext} and \textit{NetworkManager}. The first represents the context of the node (similar to \textit{System} or \textit{Runtime} in Java) and require the implementation of some function, it is also the entry point for specific device capabilities and spatio-temporal information on the node. The second requires the implementation of two methods to enable the communication with the other nodes filling the abstraction gap between real and logical network.
 \clearpage
 \section{LoRaWAN}
 \label{sec:LoRaWAN}
@@ -83,16 +83,16 @@ A LoRaWAN network, \autoref{fig:LoRaNetwork}, is composed of three fundamental e
 % 
 The topology of the network typically is a star-of-stars topology with the gateway that intermediate between motes and network-server.
 % 
-The communication between gateway and network-server is IP-based, while the communication between gateway and motes use the LoRa (Long Range) protocol.
+The communication between gateway and network-server is IP-based, while the communication between gateway and motes use the LoRa (Long Range) modulation.
 
 \begin{figure}[h]
     \centering
     \includegraphics{figures/lora_architecture2.png}
-    \caption[LoRaWAN network architecture]{LoRaWAN network architecture~\cite{muntasirjoarder2020} with all the fundamental elements. Straight line represent IP-based communication, while the circle around the gateways is the communication range with LoRa protocol.}
+    \caption[LoRaWAN network architecture]{LoRaWAN network architecture~\cite{muntasirjoarder2020} with all the fundamental elements. Straight line represent IP-based communication, while the circle around the gateways is the communication range based on LoRa modulation.}
     \label{fig:LoRaNetwork}
 \end{figure}
 
-The role of network-server is to govern and optimize the interactions between motes and gateway and provide the mote's packet to the applications in the application server.
+The role of network-server is to govern and optimize the interactions between motes and gateway and provide the mote's packet to applications in the application server.
 % 
 So among other tasks, it has to filter duplicated packet received from gateways and find the best gateway to deliver an application message to a mote.
 % 
@@ -126,7 +126,7 @@ The aim of this layer is to regulate communication between motes and gateways.
 % 
 Uplink communication (mote to gateways) uses an ALOHA-like protocol, with motes that start a broadcast communication when they need without checking that the channel is free but applying a small random delay.
 % 
-For downlink communication (gateways to mote) in order to reduce the battery consumption of the motes and respect latency requirement of different applications, it defines three different classes of devices (A, B and C) with different behaviour.
+For downlink communication (gateways to mote) in order to reduce the battery consumption of the motes, and respect latency requirement of different applications, it defines three different classes of devices (A, B and C) with different behaviour.
 % 
 Devices of class A define two fixed receiving windows after each uplink communication, with the second one opened only if the mote receives a communication during the first. 
 % 
