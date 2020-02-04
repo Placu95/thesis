@@ -76,9 +76,18 @@ It require the implementation of two interface \textit{ExecutionContext} and \te
 \clearpage
 \section{LoRaWAN}
 \label{sec:LoRaWAN}
-% (what is and network architecture)
-LoRaWAN~\cite{loraalliancetechnicalcommittee2020} is a network protocol optimized for long-range communication with low energy consumption, but with the drawback of short and not frequent messages.
 
+In the context of smart-city and more generally of the Internet of Things (IoT) one important requirement is to reduce the cost of the ``things'', intended as cost to buy it, and for its maintenance without compromise the communication range.
+Low-power wide-area network~\cite{Raza2017} (LPWAN) is a type of wireless network to allow long-range communication requiring low power consumption.
+Typically devices for this type of networks have communication range from few kilometers in urban areas to over 10 Km in open-space areas.
+Low cost requirement is achieve as composition of three factor:
+\begin{itemize}
+    \item use of lightweight protocols means device with simple hardware, so cheaper device
+    \item use of licence-free or licensed band means reduction of network cost
+    \item low power communication allow run device with small battery for over 10 years reducing cost for maintenance.
+\end{itemize}
+
+LoRaWAN~\cite{loraalliancetechnicalcommittee2020} is one of the main LPWAN protocol.
 A LoRaWAN network, \autoref{fig:LoRaNetwork}, is composed of three fundamental elements: end-device (aka motes), gateway (aka concentrators) and a network-server. 
 % 
 The topology of the network typically is a star-of-stars topology with the gateway that intermediate between motes and network-server.
@@ -118,7 +127,7 @@ SF7 means longest packet length and highest bit rate, but shortest communication
 % 
 Another important aspect of SF is that concurrent transmission (from different motes) with different SF will not produce any collision between the two transmissions.
 % 
-Finally, LoRa uses the regional Industrial, Scientific and Medical (ISM) band.
+Finally, LoRa uses the regional Industrial, Scientific and Medical (ISM) band. This means lower network cost, but limitation of the duty \mbox{cycle} to maximum 1\% for each channel imposed from the European telecommunications standards institute (ETSI).
 
 \subsection{MAC Layer}
 % (Class A, B and C)

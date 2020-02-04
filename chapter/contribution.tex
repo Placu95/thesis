@@ -1,29 +1,15 @@
 \chapter{Contribution}
 \label{chap:contribution}
+This chapter explain the contribution of this thesis. \Cref{sec:contributionDingNet} present all the work done to extend and evolve the DingNet simulator\todo{demo??????}. \Cref{sec:contributionACOverDingNet} present the work done to support the execution of aggregate computing program over the DingNet simulator, and in particular Protelis program. 
 
-\section{Problem Definition} % move chapter introduction
-
-% intro del tipo simile a quella di background - AC
-% si vuole realizzare un sistema distribuito in ottica smartCity
-% sistema che può essere composto da diverse tipologie di sensori ed attuatori
-% i sensori devono poter essere sparsi per l'intera città (ambiente del sistema) e poter comunicare le loro informazioni per molto tempo/consumando poca energia
-% Tra la varie tecnologie di comunicazione una molto in voga è LoRaWAN per X, Y, Z, ... (LoRaWAN se ben configurato molto scalabile)
-% come è possibile avere eterogeneità per i sensori lo stesso accade per gli attuatori (anche se date le caratteristiche è meglio evitare LoRaWAN per comunicazione)
-% recap su sistema visionario globale completo che si vorrebbe ottenere dicendo che vogliamo un programma globale per tutti i dispositivi
-% porzione che si tratterà qui
-
-% perchè AC
-% simulazione perchè improponibile testare un tale sistema su un deploy fisico
-% scelta del simulatore, non Alchemist, ma DingNet per avere un modello di simulazione migliore per quanto riguarda la comunicazione LoRaWAN
-
+\section{Extension and evolution to DingNet}
+\label{sec:contributionDingNet}
+% code cleanup (use type and base interface when possible, reduce code duplication, improve legibility of code (reduce magic number, useless function, ...)), define unit of measure, conversion of the map environment from discreet to continuous one (int position to double and geo, mote movement from manathan style to normal, ...), implement concept of MQTT broker, introduce concept of network-server, improve exentdibility of mote for how manage incomining message and for communication protocol mote-gateway, add concept of userMote, redesing simulation loop using timer event instead loop with time checking, change build tool to gradleKts, export transmission statistic outside the mote, lavoro per la demo?????, ranged sensor, concetto del tempo da LocalTime a DoubleTime
 
 \section{Aggregate programming over DingNet}
+\label{sec:contributionACOverDingNet}
 % AC con round poco frequenti?
 % possibili mapping di dove computiamo chi (cit pianini perchè no direttamente su LoRa)
-
-\subsection{Extension and evolution to DingNet}
-
-% code cleanup (use type and base interface when possible, reduce code duplication, improve legibility of code (reduce magic number, useless function, ...)), define unit of measure, conversion of the map environment from discreet to continuous one (int position to double and geo, mote movement from manathan style to normal, ...), implement concept of MQTT broker, introduce concept of network-server, improve exentdibility of mote for how manage incomining message and for communication protocol mote-gateway, add concept of userMote, redesing simulation loop using timer event instead loop with time checking, change build tool to gradleKts, export transmission statistic outside the mote, lavoro per la demo?????, ranged sensor, concetto del tempo da LocalTime a DoubleTime
 
 \subsection{Protelis-DingNet integration}
 
