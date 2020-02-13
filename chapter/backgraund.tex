@@ -69,7 +69,7 @@ Reduce the possibility to make mistake with low-level operators is not the only 
 Protelis~\cite{PianiniSAC2015} is a language designed for the ``aggregate computing" paradigm built on field calculus and inspired on Proto~\cite{Proto}. 
 It offers an implementation of the entire aggregate computing stack, and support for high-order field calculus~\cite{ViroliTOCL2016}, that introduces functions as first-class citizen with a lot of benefits.
 Protelis adopts a C- or Java-like syntax to reduce learning care, but it is a pure functional language.
-Aggregate computing is a paradigm for heterogeneous distributed system, so one important requirement for language for this paradigm is interoperability.
+Aggregate computing is a paradigm for heterogeneous distributed system, so one important requirement for languages for this paradigm is interoperability.
 Protelis absolves it because it is executed on the Java Virtual Machine that guarantee interoperability, but this means also full interoperability with Java world and access to all the plethora of its library.
 Accordingly to aggregate programming principles a Protelis program abstract from implementation of device capabilities, real network topology and technology. To fill this abstraction gap Protelis require to implement a back-end for every node of the system.
 It require the implementation of two interface \textit{ExecutionContext} and \textit{NetworkManager}. The first represents the context of the node (similar to \textit{System} or \textit{Runtime} in Java) and require the implementation of some function, it is also the entry point for specific device capabilities and spatio-temporal information on the node. The second requires the implementation of two methods to enable the communication with the other nodes filling the abstraction gap between real and logical network.
@@ -164,7 +164,7 @@ An example of LoRa-over-MQTT architecture is ChirpStack\footnote{\href{https://w
     \label{fig:ChirpStack}
 \end{figure}
 
-DingNet\footnote{\href{https://admin.kuleuven.be/icts/english/services/dingnet}{https://admin.kuleuven.be/icts/english/services/dingnet} (Jan 2020)} is a real LoRaWAN network composed of 11 gateways that cover the entire university city of Leuven and adopt a LoRa-over-MQTT architecture. 
+DingNet\footnote{\href{https://admin.kuleuven.be/icts/english/services/dingnet}{https://admin.kuleuven.be/icts/english/services/dingnet} (Jan 2020)} is a real LoRaWAN network of class A composed of 11 gateways that cover the entire university city of Leuven and adopt a LoRa-over-MQTT architecture. 
 % 
 DingNet allows adding user's devices and applications to the network for research porpoise.
 % 
