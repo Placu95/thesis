@@ -1,4 +1,4 @@
-\chapter{Case study: LoRa}
+\chapter{Case study: Navigation in a LoRaWAN network}
 \label{chap:case-staudyLoRa}
 
 This chapter presents the case study used as reference scenario during the evolution of the DingNet simulator, and to evaluate the limits of communication from applications to LoRa motes. 
@@ -63,10 +63,21 @@ To perform the last activity, send updating of the user position, is necessary a
 % 
 
 \subsection*{Routing application}
-% applicazione - comunicazione via MQTT
 The application to found the best route implements an A-star algorithm on the graph of street of the city. 
 The weight of the edges of the graph corresponds to the distance between the two points multiply for a factor that represent the air quality level in that street. 
 The values sensed by the sensors are retrieved subscribing the topics where the LoRaWAN networks publish them, and the route is send to the user mote publishing the massage with sub-route in its receiving topic.
 The application recompute the best route only when the user device communicate its new position and if some environment condition is changed from the previous computation.
 
+\section{Simulation in DingNet}
 % Demo + discussion limitazioni ed utilità del caso di studio????
+We here present simulations in small scale conducted over the the city of Leuven with the DingNet simulator. 
+The environment is composed from 2 gateways, 4 fixed sensors, one mobile sensor that follow a path like a public transport, and a user that require a route for a destination.
+All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
+\autoref{???}\todo{img} shows three snapshots of a simulation run, where the transparent layer represents the air quality level in that point based on the received sensor value.
+First snapshot shows the first computed route in blue, and in red the sub-route sent to the user device. 
+Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better from the application considering also the pollution. So the user have received a new sub-route of the new best route that start from its new position.
+Finally, the last snapshot shows the user arrived to destination.
+\autoref{???}\todo{img} shows a different user that require a path for the same destination. In this case its best route never changes because the changes of the environment condition do not affect the areas across from its route.
+
+\newline
+\todo[inline]{add discussion su limitazioni del caso di studio e che con più utenti il sistema non potrebbe reggere a causa dei troppi messaggi inviati verso i nodi lora che potrebbe collidere?}

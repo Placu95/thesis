@@ -86,11 +86,11 @@ So to simulate in a batter way the network's behaviour is necessary to implement
 \subsubsection{MQTT communication}
 \todo{rifrasare tutto}
 In addition to emulating the MQTT behaviour are defined the following requirements for the MQTT client:
-\begin{enumerate}
+\begin{itemize}
     \item[Req1.] allow to change client implementation in a simple and fast way (for example from a mock implementation to a real one). 
     This requirement is useful to allow simulation with different client abstraction, optimization, and realize a simulator technology independent for MQTT client's implementation
     \item[Req2.] avoid conversion of MQTT message to a domain specific object at each topic \mbox{subscription}.
-\end{enumerate}
+\end{itemize}
 To respect Req1 is necessary to avoid to use directly reference to a particular implementation, so was been defined the interface \mbox{\textit{MqttClient}}.
 It represents a MQTT client and provide all the basic functionality to interact with a MQTT broker. 
 The definition of this interface allow then to use own implementation of MQTT client or use external library implementing a wrapper that extends the interface.
@@ -143,7 +143,7 @@ This type of simulation differs from the single run only for the condition of te
 The condition requires to define the duration of the simulation, so evaluate it as finished when is passed the defined time.
 
 \subsection{Ranged sensor}
-The DingNet simulator was developed to simulate self-adaptation applications based on LoRa transmissions received\todo{check ordine received}, so until now the real content of LoRa packet's payload was ignored.
+The DingNet simulator was developed to simulate self-adaptation applications based on received LoRa transmissions\todo{check ordine received}, so until now the real content of LoRa packet's payload was ignored.
 The behaviour of different kinds of applications could instead depended from the payload. 
 The idea is to define a new type of sensor that produces value in a configurable way splitting the region of simulation in a matrix of configurable dimension. 
 So for each cell of the matrix define a list configurations. 
