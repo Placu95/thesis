@@ -5,8 +5,8 @@ This chapter presents the case study used as reference scenario during the evolu
 A demo from this case study was showed during the Day of Science in Flanders to present the LoRaWAN technology receiving a lot of attention.
 
 \section{Description case study}
-
-We want to realize a system able to provide to the user the healthiest route to reach a destination. 
+Leuven is cycling city where most of the inhabitants and students use daily their bike to move across the city. 
+In this context we want to realize a system able to provide to the user the healthiest route to reach a destination. 
 The route generation will be based on air quality level of the areas to across to reach the destination. 
 The user, in order to obtain the route, has to require it to the application deployed in a remote server.
 The system use the data received from the sensor network to create a city map of quality air.
@@ -73,11 +73,48 @@ The application recompute the best route only when the user device communicate i
 We here present simulations in small scale conducted over the the city of Leuven with the DingNet simulator. 
 The environment is composed from 2 gateways, 4 fixed sensors, one mobile sensor that follow a path like a public transport, and a user that require a route for a destination.
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
-\autoref{???}\todo{img} shows three snapshots of a simulation run, where the transparent layer represents the air quality level in that point based on the received sensor value.
-First snapshot shows the first computed route in blue, and in red the sub-route sent to the user device. 
-Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better from the application considering also the pollution. So the user have received a new sub-route of the new best route that start from its new position.
+\autoref{fig:sim1} shows three snapshots of a simulation run, where the transparent layer represents the air quality level in that point based on the received sensor value.
+First snapshot shows the first computed route in blue, and in red the sub-route received from the user until that moment.
+Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better from the application combining distance and pollution. 
+So the user has received a new sub-route of the new best route that start from its new position.
 Finally, the last snapshot shows the user arrived to destination.
-\autoref{???}\todo{img} shows a different user that require a path for the same destination. In this case its best route never changes because the changes of the environment condition do not affect the areas across from its route.
+% 
+\begin{figure}[h]
+    \centering
+    \begin{tabular}{lll}
+         \includegraphics[scale=0.42]{figures/sim1snap1.png}  &
+         \includegraphics[scale=0.42]{figures/sim1snap2.png} &
+         \includegraphics[scale=0.42]{figures/sim1snap3.png} 
+    \end{tabular}
+    \caption{Three snapshot of a simulation run with changing of the route due to the change of the environment conditions}
+    \label{fig:sim1}
+\end{figure}
+% 
 
-\newline
-\todo[inline]{add discussion su limitazioni del caso di studio e che con più utenti il sistema non potrebbe reggere a causa dei troppi messaggi inviati verso i nodi lora che potrebbe collidere?}
+\noindent \autoref{fig:sim2} shows a different user that require a path for the same destination. In this case its best route never changes because the changes of the environment condition do not affect the areas across from its route.
+% 
+\begin{figure}[h]
+    \centering
+    \begin{tabular}{lll}
+         \includegraphics[scale=0.42]{figures/sim2snap1.png}  &
+         \includegraphics[scale=0.42]{figures/sim2snap2.png} &
+         \includegraphics[scale=0.42]{figures/sim2snap3.png} 
+    \end{tabular}
+    \caption{Three snapshot of a simulation run without changing of the route despite the change of the environment conditions}
+    \label{fig:sim2}
+\end{figure}
+% 
+
+Although it is a simple simulation with few sensors and only one user device, it can be deduced that use LoRa technology also for user devices is possible only in certain scenarios.
+In this scenario the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
+Moreover considering a real scenario where the number of user is higher (es. more the one thousand) the network congestion will increase with also the probability of collision among transmissions, which require re-transmission worsening the situation.
+\paragraph{Concluding} this case study has been useful as reference for the simulator evolution helping to consider the behaviour of all the network facilities and the bi-directional communication schema.
+It has confirmed the validity of LoRaWAN as enabling technology for a sensor network and its limits regarding the communication from application to LoRa devices.
+
+\iffalse
+Seppur è una simulazione semplice con pochi sensori e un solo dispositivo utente per volta, si può dedurre che utilizzare la tecnologia LoRa anche per i dispositivi utente è una scelta attuabile solo in alcuni scenari. Infatti il numero di trasmissioni necessario per comunicare l'intero percorso è elevato e quindi possibile solo per brevi tragitti. 
+Inoltre considerando la presenza di più dispositivi utenti (es 100+) la congestione della rete aumenterebbe, ma anche la probabilità di collisioni tra le varie trasmissioni, andando a richiedere successive ritrasmissioni peggiorando quindi la situazione.
+
+Concludendo questo caso di studio è stato utile come riferimento per l'evoluzione del simulatore nel considerareil comportamento di tutti i dispositivi di rete e la comunicazione in entrambe le direzioni. 
+Ha confermato la validità di LoRaWAN come tecnologia abilitante per una rete di sensori e i suoi limiti per quanto riguarda la comunicazione da applicazione a dispositivi LoRa.
+\fi
