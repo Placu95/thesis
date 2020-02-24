@@ -1,0 +1,31 @@
+module protelis:homeHeating_timer
+import it.unibo.acdingnet.protelis.util.Const.ProtelisEnv.*
+import org.protelis.lang.datatype.Option.*
+import protelis:state:time
+import protelis:utility
+
+public def decreaseTemp() = env.put(CURRENT_TEMP, rep (
+	v <- env.get(CURRENT_TEMP)) {
+	cyclicFunction(3600, { roundToDecimal(v - self.getDecreaseDelta()) }, v)
+})
+public def increaseTemp() = env.put(CURRENT_TEMP, rep (
+	v <- env.get(CURRENT_TEMP)) {
+	cyclicFunction(3600, { roundToDecimal(v + self.getIncreaseDelta()) }, v)
+})
+
+let pollutionField = nbr(mux(env.has(IAQLEVEL)) {
+	optionally([self.nbrRange(), env.get(IAQLEVEL)])
+} else {
+	absent()
+})
+let sensorValues = foldUnion([pollutionField]).filter { it.isPresent() }.map { it.get() }
+let maxTemperature = self.temperatureByPollution(
+	idw(sensorValues))
+optionally(env.get(DESIRED_TEMP, JAVA_NULL))
+	.map { mux(it < maxTemperature) { it } else { maxTemperature } }
+	.map { 
+		if(it < env.get(CURRENT_TEMP)) { decreaseTemp } 
+		else { if(it > env.get(CURRENT_TEMP)) { 
+			increaseTemp } else { emptyFun } }
+	}
+	.orElse(emptyFun).apply()

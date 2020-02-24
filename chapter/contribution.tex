@@ -1,11 +1,11 @@
 \chapter{Contribution}
 \label{chap:contribution}
-This chapter explain the contribution of this thesis. \Cref{sec:contributionDingNet} start presenting all the work done to extend and evolve the DingNet simulator, and terminate with a validation scenario\todo{remove scenario}. \Cref{sec:contributionACOverDingNet} present the work done to support the execution of aggregate computing program over the DingNet simulator, and in particular Protelis program. 
+This chapter explain the contribution of this thesis. \Cref{sec:contributionDingNet} start presenting all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} present the work done to support the execution of aggregate computing program over the DingNet simulator, and in particular Protelis program. 
 
 \section{Extension and evolution to DingNet}
 \label{sec:contributionDingNet}
-This section presents all the improvement, extension, and evolution applied to the DingNet simulator to achieve an extendible and configurable simulator, that simulates the entire LoRa-over-MQTT network. 
-Previous works on the simulator\todo{intro phrase} were focused mainly on three areas:
+This section presents all the improvements and extensions applied to the DingNet simulator to achieve an extendible and configurable simulator, that simulates the entire LoRa-over-MQTT network. 
+Previous works on the simulator were focused mainly on three areas:
 \begin{enumerate}
     \item \textbf{LoRaWAN communications}: simulation of bi-directional communication between LoRa motes and LoRa gateway
     \item \textbf{GUI}: provide a good user interface that simplify the configuration of simulation and allow the user to see the simulation result
@@ -84,25 +84,26 @@ In a LoRa-over-MQTT network, communications between gateways and applications ar
 So to simulate in a batter way the network's behaviour is necessary to implements both.
 
 \subsubsection{MQTT communication}
-\todo{rifrasare tutto}
-In addition to emulating the MQTT behaviour are defined the following requirements for the MQTT client:
+In addition to emulating the MQTT behaviour, the following requirements for the MQTT client have been defined:
 \begin{itemize}
-    \item[Req1.] allow to change client implementation in a simple and fast way (for example from a mock implementation to a real one). 
-    This requirement is useful to allow simulation with different client abstraction, optimization, and realize a simulator technology independent for MQTT client's implementation
-    \item[Req2.] avoid conversion of MQTT message to a domain specific object at each topic \mbox{subscription}.
+    \item[Req1.] allow simulations with different client abstractions, optimizations, and realize a simulator technology independent for MQTT client's implementation 
+    \item[Req2.] avoid MQTT messages conversions to domain specific objects at each topic \mbox{subscription}.
 \end{itemize}
-To respect Req1 is necessary to avoid to use directly reference to a particular implementation, so was been defined the interface \mbox{\textit{MqttClient}}.
-It represents a MQTT client and provide all the basic functionality to interact with a MQTT broker. 
-The definition of this interface allow then to use own implementation of MQTT client or use external library implementing a wrapper that extends the interface.
-To respect Req2 is necessary to delegate the conversion from and to the MQTT message type to the client, which is the entity that interacts whit the broker and knows how manipulates them. This require to specify the type of the receiving message during the topic subscription phase.
-\todo{Json - serializer/ deserializer}
-\todo{elenco implementazioni e citazione UML}
-\todo{borker locale}
+To fulfill Req1 it is necessary to allow to switch client implementation in a simple and fast way (for example from a mock implementation to a real one).
+To do so it has been defined the interface \mbox{\textit{MqttClient}}, avoiding to use directly a particular implementation.
+% To fulfill Req1 it is necessary to avoid to use directly reference to a particular implementation, so was been defined the interface \mbox{\textit{MqttClient}}.
+It represents a MQTT client and it provides all the basic functionalities to interact with a MQTT broker. 
+This interface allows to use custom implementations of MQTT client or external libraries implementing a wrapper extending the interface.
+% 
+To satisfy Req2 it is necessary to delegate conversions from and to the MQTT message type to the client, which interacts with the broker and knows how manipulates them. \todo{togliere dopo la virgola?}
+% 
+This requires to specify the receiving message type during the topic subscription phase.
+% 
+\autoref{fig:mqtt} shows the \mbox{\textit{MqttClient}} interface and its actual available implementations.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/mqttClient.png}
-    \caption{\textit{MqttClient} interface and its available implementations.\-
-    ..........}
+    \caption[\textit{MqttClient} interface and its available implementations]{\textit{MqttClient} interface and its available implementations. Thanks to \mbox{\textit{addSerializer}} and \mbox{\textit{addDeserializer}} methods it is possible to define custom strategies to convert messages for each client.}
     \label{fig:mqtt}
 \end{figure}
 
@@ -143,7 +144,7 @@ This type of simulation differs from the single run only for the condition of te
 The condition requires to define the duration of the simulation, so evaluate it as finished when is passed the defined time.
 
 \subsection{Ranged sensor}
-The DingNet simulator was developed to simulate self-adaptation applications based on received LoRa transmissions\todo{check ordine received}, so until now the real content of LoRa packet's payload was ignored.
+The DingNet simulator was developed to simulate self-adaptative applications based on received LoRa transmissions, so until now the real content of LoRa packet's payload was ignored.
 The behaviour of different kinds of applications could instead depended from the payload. 
 The idea is to define a new type of sensor that produces value in a configurable way splitting the region of simulation in a matrix of configurable dimension. 
 So for each cell of the matrix define a list configurations. 
@@ -172,23 +173,20 @@ The actual file format for the sensor configuration file is \textit{toml}\footno
 
 \section{Aggregate programming over a LoRa-over-MQTT network}
 \label{sec:contributionACOverDingNet}
-This section presents the integration between the aggregate computing paradigm and a LoRa-over-MQTT like DingNet.
+This section presents the integration between the aggregate computing paradigm and a LoRa-over-MQTT network like DingNet.
 \todo{rifrasare prima frase?}
 Firstly, to join these two concepts is necessary to define how map the networks entities in an aggregate computing system, and secondly identify potentially additional requirements or limitations for these entities.
-In the aggregate computing viewpoint, a system is composed of a set of distributed heterogeneous computational entities, called nodes, that execute the same global program and communicate with a subset of them defined by a policy of neighbourhood. 
-\todo{ci starebbe bene un while, ma poi sarebbero da unire le due frasi??}
-The main entities that compose a LoRaWAN network are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
+In the aggregate computing viewpoint, a system is composed of a set of distributed heterogeneous computational entities, called nodes. Nodes execute the same global program and communicate with a subset of them defined by a neighbourhood policy. 
+In LoRaWAN network the main entities are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
 So following the previous vision is natural mapping each LoRa mote in a node that represents its digital twin (from now called LoRa node) inside the aggregate system.
 If LoRa nodes, on one hand, can be considered as generic nodes and do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours; at the other hand they have to support communication via MQTT. 
 This requirement is necessary to enable bidirectional communication with the respective physical counterparts.
-Finally, if on one hand they were identified the LoRa motes as the only entities of interest at the application level, on the other hand, it is necessary to analyse which network entities can host the aggregate nodes. 
-% check se prima detto che posizione in cui eseguiamo i nodi non influisce il programma aggregato
+Finally, if on one hand LoRa motes were identified as the only entities of interest at application level, on the other hand, it is necessary to analyse which network entities can host the aggregate nodes. 
 In \cite{CCNCPS2018} the authors present a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluation of the proposed solution, they identify some issues due to the physical limitation of the technology communication. 
 While these issues do not allow to execute aggregate computing program directly on the LoRa motes, they are not valid for the others network entities and does not exist any paper that identifies others possible issues.
 Even if all the LoRaWAN network entities excluded the motes can host the aggregate node (LoRa nodes or others type of node), it is important to specify a limitation for the LoRa nodes. 
 The LoRa nodes can interact with the respective LoRa mote only following the interaction schema defined from the LoRa-over-MQTT networks. 
 For example, if a LoRa node is hosted by a LoRa gateway, that receives directly the transmissions of the respective LoRa mote, it cannot receive directly the packet, but it has to wait that is published on the MQTT broker.
-The following subsection presents the software architecture designed to support the LoRa nodes inside an aggregate computing system defined in \textit{Protelis}. \todo{change defined - valutare se togliere ultima frase} \todo{add image?}
 % disegnino con building block del sistema
 % \begin{figure}[h]
 %     \centering
@@ -198,7 +196,7 @@ The following subsection presents the software architecture designed to support 
 % \end{figure}
 
 \subsection{Integration of Protelis with DingNet}
-
+% The following subsection presents the software architecture designed to support the LoRa nodes inside an aggregate computing system defined in \textit{Protelis}.
 The only things to do to enable developing of Protelis applications over the DingNet network is to satisfy the requirement previously identified.
 \iffalse
 The only requirement identified to support LoRa nodes inside an aggregate computing system is that they have to support MQTT communication. 
@@ -211,11 +209,8 @@ That requirement represents a specific capability of this type of nodes and Prot
     \caption{Model of \textit{ExecutionContext} for LoRa nodes}
     \label{fig:execContext}
 \end{figure}
-\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information, so it is defined\todo{bho} \mbox{\textit{PositionedExecutionContext}} that extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
-\iffalse
-\mbox{\textit{LoRaNodeExecutionContext}} adds support for MQTT communication (satisfying the identified requirement), encapsulate the subscription to the MQTT topic to receive the sensed values by the respective LoRa mote, and manage the received packet adding the sensed values to the knowledge-based of the node or modifying the node position if the value belongs to the GPS sensor.
-\fi
-\mbox{\textit{LoRaNodeExecutionContext}} is the basic execution context for a LoRa node and it:\todo{check if}
+\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information. So it is defined \mbox{\textit{PositionedExecutionContext}} that extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
+\mbox{\textit{LoRaNodeExecutionContext}} is the basic execution context for a LoRa node that:
 % 
 \begin{itemize}
     \item adds support for MQTT communication, satisfying the identified requirement
