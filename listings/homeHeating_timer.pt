@@ -6,11 +6,11 @@ import protelis:utility
 
 public def decreaseTemp() = env.put(CURRENT_TEMP, rep (
 	v <- env.get(CURRENT_TEMP)) {
-	cyclicFunction(3600, { roundToDecimal(v - self.getDecreaseDelta()) }, v)
+	cyclicFunction(1800, { roundToDecimal(v - self.getDecreaseDelta()) }, v)
 })
 public def increaseTemp() = env.put(CURRENT_TEMP, rep (
 	v <- env.get(CURRENT_TEMP)) {
-	cyclicFunction(3600, { roundToDecimal(v + self.getIncreaseDelta()) }, v)
+	cyclicFunction(1800, { roundToDecimal(v + self.getIncreaseDelta()) }, v)
 })
 
 let pollutionField = nbr(mux(env.has(IAQLEVEL)) {

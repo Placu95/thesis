@@ -1,24 +1,50 @@
 \chapter{Introduction}
 \label{chap:introduction}
-% Write introduction here.
+The environment in which we are immersed every day is pervaded by devices capable of computing and communicating.
+This situation leads to design smart-environment like smart-city, smart-home, smart-hospital, and so on.
+All these systems, and more in general, the cyber-physical systems (CPS), are composed of myriads of heterogeneous devices.
+The devices can differ in their computational and communication capabilities, and ability to interact with the environment in which they are immersed.
+This heterogeneity makes difficult to design open distributed and technology independent systems, particularly with regard to communication technology.
+In fact exists several wireless communication technologies that differ for their potentiality and limits, like transmission range, energy consumption, cost, and so on.
+Among all the technologies, one of the most promising is \mbox{LoRaWAN}~\cite{loraalliancetechnicalcommittee2020}, which allows transmission with low power consumption and long range.
 
-% dire le motivazioni ed introdurre brevemente le varie cose citando Sentilo?
+To make easier design these kind of systems in literature are presents several approaches.
+One class of approaches proposes to define a global platform. 
+It should provide a uniform communication interface that allows the application to abstract from the real communication technology used by the devices. One example of  this kind of platform is Sentilo\footnote{\href{http://www.sentilo.io}{http://www.sentilo.io}} designed for the smart-city of Barcelona.
+% 
+Another approach is the aggregate computing paradigm~\cite{BealIEEEComputer2015}.
+It increases the level of abstraction respect the previous one, allowing to define programs where the programmable entity is not the single entity but the all set of devices.
+
+The behaviour of a complex pervasive system, and moreover of an aggregate system, cannot be tested on a single machine; at the same time, testing in the real world is usually inconvenient, complex, and expensive, or even straightforwardly impossible.
+A partial solution to test the behaviour of a system prior to deployment is via simulation.
+% Complex pervasive systems are difficult to design and develop due to the high number of device and interaction between them. 
+% So to verify the correctness of the system reducing the cost and the time to real deploy, often difficultly feasible, a common solution is to simulate the system before deploy it.
+In literature exists several simulator for different domains and with different models to allow simulations at different abstraction levels.
+One simulation tool, designed in University of Bologna, is Alchemist~\cite{PianiniJOS2013}.
+% Alchemist~\cite{PianiniJOS2013} is one simulation tool, designed in University of Bologna, that allows also simulation of aggregate system.
+Alchemist has been used in the past, for instance, for simulating: crowd detection~\cite{FGCS2017, TOMACS2018} and evacuation~\cite{DBLP:journals/corr/abs-1711-08297}, for mixed edge-cloud computation~\cite{Coordination2019-sgcg}, opportunistic instant messaging~\cite{Coordination2019-processes}, smart vehicle counting~\cite{Viroli2016}, etc.
+So Alchemist allows also simulation of aggregate systems, but it actually does not allow to simulate the behaviour of a communication network, like a LoRaWAN one, in a realistic way.
+Another relevant platform specialized to simulate the behaviour of a LoRaWAN network on large scale is the DingNet Simulator~\cite{inproceedings}.
+This platform is useful to simulate CPS that includes a high number of Long Range (LoRa)-based devices; considering also the high-density of devices that can be integrated in these networks~\cite{Lavric2019}. 
+
+The aim of this thesis is to evolve the DingNet simulator providing an enabling platform to simulate aggregate systems over a LoRaWAN network. 
+An additional requirement for the platform is to allow the deploy of a simulated system in a real network with a low effort.
 
 % discorso simulazioni perchè sono utili e il fatto che simulatori diversi offrono astrazioni diverse, es. Alchemist consente simulazione di programmi protelis astraendo dall'infrastruttura di rete
 % mentre DingNet è più specializzato su comunicazioni di rete di tipo LORaWAN
 
-% citare paper scalabilità LoRa
-% AC con round poco frequenti?
 
-% %
-% \paragraph{Thesis Structure.} % Optional paragraph title
-% %
-% (This is optional an optional paragraph.)
-% %
-% Accordingly, the reminder of this thesis is structures as follows.
-% %
-% \Cref{chap:background} discusses (briefly describe the content of \cref{chap:background}).
-% %
-% Describe other chapters here in a similar way.
-% %
-% Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution.
+%
+\paragraph{Thesis Structure.} % Optional paragraph title
+%%
+Accordingly, the reminder of this thesis is structures as follows.
+%
+\Cref{chap:background} provides an overview of the aggregate computing paradigm, \mbox{LoRaWAN} protocol, and the DingNet simulator.
+%
+\Cref{chap:contribution} presents the work done to improve DingNet and evolve it in a platform that supports aggregate computing applications.
+%
+\Cref{chap:case-staudyLoRa} present a case study developed on DingNet simulator after its evolution.
+% 
+\Cref{chap:case-staudyAC} presents a case study where an aggregate computing application is simulated in the DingNet simulator.
+% 
+Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution, and presenting future works.

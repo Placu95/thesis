@@ -1,9 +1,29 @@
 \chapter{Conclusion}
 \label{chap:conclusions}
+ 
+In this thesis, the problem to provide a platform to simulate aggregate systems over a LoRaWAN networks has been addressed.
+Firstly, the focus has been on improving and extending the simulator DingNet, refining its model and adding new features.
+Then, the support to simulate aggregate systems inside it has been designed. 
+During this phase it has been focused also in produce a platform that allows to move the simulated system to a real deploy with a low effort.
+Finally, it has been provided two different case studies to verify all the improvements and extensions introduced.
+At the end it is possible to say that the achieved platform enables the simulation of a aggregate system over a LoRaWAN network, and allows to move it in a real deploy in a simple way. 
+To do that are necessary only two activities:
+\begin{enumerate}
+    \item change the time concept used from the Protelis nodes, from the simulator time to the time of the real device that hosts the node
+    \item change the MQTT client implementation (if it was used a mock one) and the MQTT broker address to subscribe to receive the mote packets.
+\end{enumerate}
+ So all the aggregate system developed for the simulation (Protelis backend and program) does not require any changing.
 
 \section{Future work}
-% definere le modalità di incremento in modo aggregato
-% usare learning per predirre l'inquinamento e quindi reagire preventivamente
-% migliorare simulatore DingNet nella gestione del clock per emulare la perdita di sincronismo dei clock distribuiti
+Starting from the work presented in this thesis are available several improvements and interesting topics in different areas.
 
-% self-adaptive application via AC??
+One area is to further improve the DingNet simulator. 
+For example, it is possible to refine the model by simulating the loss of synchronism among the devices clock. It is possible to do it with different abstraction levels and required effort; starting with the application of a simple jitter to the clocks, arriving to introduce a stochastic model like a Markov chain.
+
+Another area concerns the case study presented in \Cref{chap:case-staudyAC}. 
+Here it is possible to evolve the program applying technique of machine learning to predict periods with high pollution and take countermeasures in advance. 
+For example, it is possible to train a neural network that predicts the pollution level of the following days, considering the actual situation and the weather forecast.
+
+Finally, it exists an interesting topic not directly correlated with the DingNet simulator, but with CPS and aggregate system. 
+In the introduction of this thesis has been cited the platform Sentilo, as enabling platform to design pervasive system, abstracting from the communication technology of its devices.
+So the topic is to study if it is possible to use the platform Sentilo, or a similar one, to fill part of the abstraction gap introduced from the aggregate computing paradigm.
