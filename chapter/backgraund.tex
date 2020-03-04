@@ -30,7 +30,7 @@ The goal is to define the global behaviour in a declarative way focusing on mani
 The final result will be a complex, modular, extendible, self-adaptive and self-organized distributed system.
 % 
 The aggregate computing approach offers base functionalities that are combinable with each other to assemble advanced and user-friendly APIs. In order to organize all the provided functionalities, a multilayer stack has been designed, which collects them all by abstraction level. 
-As is possible seeing from the stack, \autoref{fig:ACstack}, the base constructs are based on the \textit{field calculus} theory.
+As is possible seeing from the stack, \autoref{fig:ACstack}, the base constructs are based on the \textit{field calculus}~\cite{Audrito2019} theory.
 
 \begin{figure}[h]
     \centering
@@ -68,7 +68,7 @@ This functions are also complementary and combining them differently is possible
 \subsection{Protelis}
 \label{subSec:Protelis}
 Protelis~\cite{PianiniSAC2015} is a language designed for the ``aggregate computing" paradigm built on field calculus and inspired on Proto~\cite{Proto}. 
-It offers an implementation of the entire aggregate computing stack, and support for high-order field calculus~\cite{ViroliTOCL2016}, that introduces functions as first-class citizen with a lot of benefits.
+It offers an implementation of the entire aggregate computing stack, and support for high-order field calculus~\cite{Audrito2019}, that introduces functions as first-class citizen with a lot of benefits.
 Protelis adopts a C- or Java-like syntax to reduce learning care, but it is a pure functional language.
 Aggregate computing is a paradigm for heterogeneous distributed system, and one important requirement for languages for this paradigm is interoperability.
 Protelis absolves it because it is executed on the Java Virtual Machine%that guarantee interoperability
@@ -204,5 +204,5 @@ At the end of each simulation is possible to export different information for mo
 
 Nowadays, the simulator is used mainly to simulate self-adaptive applications in large scenarios to increase the number of transmissions correctly delivered to at least one gateway reducing the energy consumption of the motes.
 
-\paragraph{Concluding} this chapter has presented first the aggregate computing paradigm, presenting its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it had presented LoRaWAN, which is one of the main LPWAN protocol. 
+\paragraph{Concluding.} This chapter has presented first the aggregate computing paradigm, presenting its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it had presented LoRaWAN, which is one of the main LPWAN protocol. 
 Finally it has presented DingNet a LoRaWAN network and its simulator.

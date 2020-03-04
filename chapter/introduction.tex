@@ -10,40 +10,42 @@ Among all the technologies, one of the most promising is \mbox{LoRaWAN}~\cite{lo
 
 To make easier design these kind of systems in literature are presents several approaches.
 One class of approaches proposes to define a global platform. 
-It should provide a uniform communication interface that allows the application to abstract from the real communication technology used by the devices. One example of  this kind of platform is Sentilo\footnote{\href{http://www.sentilo.io}{http://www.sentilo.io}} designed for the smart-city of Barcelona.
+It should provide a uniform communication interface that allows the application to abstract from the real communication technology used by the devices. 
+One example is Sentilo\footnote{\href{http://www.sentilo.io}{http://www.sentilo.io}}, a cross platform middleware designed for the smart-city of Barcelona.
+It provides a simple REST interface to send and receive sensor data, and a set of core modules to govern the system like real time storage, and network security. 
+Its architecture is extendible and allows horizontal scalability from single servers to cluster.
 % 
 Another approach is the aggregate computing paradigm~\cite{BealIEEEComputer2015}.
 It increases the level of abstraction respect the previous one, allowing to define programs where the programmable entity is not the single entity but the all set of devices.
 
 The behaviour of a complex pervasive system, and moreover of an aggregate system, cannot be tested on a single machine; at the same time, testing in the real world is usually inconvenient, complex, and expensive, or even straightforwardly impossible.
 A partial solution to test the behaviour of a system prior to deployment is via simulation.
-% Complex pervasive systems are difficult to design and develop due to the high number of device and interaction between them. 
-% So to verify the correctness of the system reducing the cost and the time to real deploy, often difficultly feasible, a common solution is to simulate the system before deploy it.
 In literature exists several simulator for different domains and with different models to allow simulations at different abstraction levels.
 One simulation tool, designed in University of Bologna, is Alchemist~\cite{PianiniJOS2013}.
-% Alchemist~\cite{PianiniJOS2013} is one simulation tool, designed in University of Bologna, that allows also simulation of aggregate system.
 Alchemist has been used in the past, for instance, for simulating: crowd detection~\cite{FGCS2017, TOMACS2018} and evacuation~\cite{DBLP:journals/corr/abs-1711-08297}, for mixed edge-cloud computation~\cite{Coordination2019-sgcg}, opportunistic instant messaging~\cite{Coordination2019-processes}, smart vehicle counting~\cite{Viroli2016}, etc.
 So Alchemist allows also simulation of aggregate systems, but it actually does not allow to simulate the behaviour of a communication network, like a LoRaWAN one, in a realistic way.
-Another relevant platform specialized to simulate the behaviour of a LoRaWAN network on large scale is the DingNet Simulator~\cite{inproceedings}.
+Another relevant platform, but specialized to simulate the behaviour of a LoRaWAN network on large scale is the DingNet Simulator~\cite{inproceedings}.
 This platform is useful to simulate CPS that includes a high number of Long Range (LoRa)-based devices; considering also the high-density of devices that can be integrated in these networks~\cite{Lavric2019}. 
 
-The aim of this thesis is to evolve the DingNet simulator providing an enabling platform to simulate aggregate systems over a LoRaWAN network. 
-An additional requirement for the platform is to allow the deploy of a simulated system in a real network with a low effort.
-
-% discorso simulazioni perchè sono utili e il fatto che simulatori diversi offrono astrazioni diverse, es. Alchemist consente simulazione di programmi protelis astraendo dall'infrastruttura di rete
-% mentre DingNet è più specializzato su comunicazioni di rete di tipo LORaWAN
-
+Considering all, the purpose of this thesis is to start filling the network abstraction gap of the aggregate paradigm beginning with supporting aggregate computing over LoRaWAN networks.
+To do so two main activities will be performed: 
+\begin{itemize}
+    \item design the support for Protelis, which is a language for aggregate computing, over LoRaWAN
+    \item provide a simulation platform for this kind of systems,
+    that should also allow to deploy the simulated systems in real networks with a low effort.
+\end{itemize}
+To obtain the desired simulation platform, choosing DingNet as baseline, will be necessary to improve and evolve it adding all the needed functionalities. 
 
 %
 \paragraph{Thesis Structure.} % Optional paragraph title
 %%
-Accordingly, the reminder of this thesis is structures as follows.
+Accordingly, the reminder of this thesis is structured as follows.
 %
 \Cref{chap:background} provides an overview of the aggregate computing paradigm, \mbox{LoRaWAN} protocol, and the DingNet simulator.
 %
 \Cref{chap:contribution} presents the work done to improve DingNet and evolve it in a platform that supports aggregate computing applications.
 %
-\Cref{chap:case-staudyLoRa} present a case study developed on DingNet simulator after its evolution.
+\Cref{chap:case-staudyLoRa} presents a case study developed on DingNet simulator after its evolution for the Day of Science in Flanders.
 % 
 \Cref{chap:case-staudyAC} presents a case study where an aggregate computing application is simulated in the DingNet simulator.
 % 

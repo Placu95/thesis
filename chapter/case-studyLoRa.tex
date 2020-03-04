@@ -1,10 +1,10 @@
-\chapter{Case study: Navigation in a LoRaWAN network}
+\chapter{Case study: Pollution-aware user navigation}
 \label{chap:case-staudyLoRa}
 
 This chapter presents the case study used as reference scenario during the evolution of the DingNet simulator, and to evaluate the limits of communications from applications to LoRa motes. 
 A demo from this case study was showed during the Day of Science in Flanders to present the LoRaWAN technology receiving a lot of attention.
 
-\section{Description case study}
+\section{Case study description}
 Leuven is a cycling city where most of the inhabitants and students use daily their bike to move across the city. 
 In this context we want to realize a system able to provide to the user the healthiest route to reach a destination. 
 The route generation will be based on air quality level of the crossed areas to reach the destination. 
@@ -90,7 +90,7 @@ Finally, the last snapshot shows the user arrived to destination.
          \includegraphics[scale=0.42]{figures/sim1snap2.png} &
          \includegraphics[scale=0.42]{figures/sim1snap3.png} 
     \end{tabular}
-    \caption[Three snapshot of a simulation run with changing of the route]{Three snapshot of a simulation run with changing of the route dues to the change of the environment conditions.}
+    \caption[Three snapshots of a simulation run with changing of the route]{Three snapshots of a simulation run with changing of the route dues to the change of the environment conditions.}
     \label{fig:sim1}
 \end{figure}
 % 
@@ -104,7 +104,7 @@ Finally, the last snapshot shows the user arrived to destination.
          \includegraphics[scale=0.42]{figures/sim2snap2.png} &
          \includegraphics[scale=0.42]{figures/sim2snap3.png} 
     \end{tabular}
-    \caption[Three snapshot of a simulation run without changing of the route]{Three snapshot of a simulation run without changing of the route despite the change of the environment conditions.}
+    \caption[Three snapshots of a simulation run without changing of the route]{Three snapshots of a simulation run without changing of the route despite the change of the environment conditions.}
     \label{fig:sim2}
 \end{figure}
 % 
@@ -113,6 +113,6 @@ Although it is a simple simulation with few sensors and only one user device, it
 In this scenario the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
 Moreover considering a real scenario where the number of user is higher (es. more than one thousand) the network congestion will increase with also the probability of collision among transmissions, which require re-transmission worsening the situation.
 
-\paragraph{Concluding} this chapter has presented the case study used as reference for the simulator evolution.
+\paragraph{Concluding.} This chapter has presented the case study used as reference for the simulator evolution.
 It has helped to consider the behaviour of all the network facilities and the bi-directional communication schema.
 It has confirmed the validity of LoRaWAN as enabling technology for a sensor network and its limits regarding the communication from application to LoRa devices.
