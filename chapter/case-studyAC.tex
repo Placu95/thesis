@@ -96,20 +96,26 @@ The final part of the program defines the target temperature for each device and
 ]{listings/homeHeating_timer.pt}
 
 \section{Simulation in DingNet}
+This section presents the simulation of a possible scenario. 
+The simulation is conducted over the city of Leuven with the DingNet simulator.
+First, the setup of the simulated scenario is presented; then it will be discussed the simulation results in a qualitative way based on simulation snapshots.
 
-Here is presented a simulation conducted over the city of Leuven with the DingNet simulator. 
-The environment is composed from the following entities:
+\subsection{Setup}
+The configuration of the simulation provides for a environment composed of the following entities:
 \begin{itemize}
     \item 9 of the 11 DingNet network gateways (the others two are outside of the simulation region)
     \item 8 fixed sensors equipped with the PM10 sensor
     \item 2 mobile sensors equipped with PM10 and GPS sensors
     \item 3 building devices displaced in three different areas of the city.
 \end{itemize}
-The low number of mobile sensors and building devices is only due to visualisation reasons. 
 All the sensors are configured to send a new measurement every hour, according to the specifications of the CAQI index for this polluting gas.
+The low number of mobile sensors and building devices is only due to visualisation reasons. 
+
+\subsection{Result}
 \autoref{fig:simAC} shows three snapshots taken from a simulation run of five days.
 The transparent layer represents the air quality level, that is obtained applying an inverse distance weighting on sensed values in the range of 1Km. 
 Green color means ``very low'' level, while red color means ``high'' level.
+The two motes with a red line are the mobile sensors, while the others are the fixed ones.
 The building devices are represented with a black dot and a text with pattern ``X/Y/Z''.
 % 
 \begin{figure}[h]

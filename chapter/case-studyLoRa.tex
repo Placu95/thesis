@@ -7,7 +7,7 @@ A demo from this case study was showed during the Day of Science in Flanders to 
 \section{Case study description}
 Leuven is a cycling city where most of the inhabitants and students use daily their bike to move across the city. 
 In this context we want to realize a system able to provide to the user the healthiest route to reach a destination. 
-The route generation will be based on air quality level of the crossed areas to reach the destination. 
+The route generation will be based on air quality level, based on the CAQI index~\cite{CAQI}, of the crossed areas to reach the destination. 
 The user, in order to obtain the route, has to require it to the application deployed in a remote server.
 The system uses data received from the sensor network to create a city map of quality air.
 Then, the application has to define the route to a destination that optimize the trade-off between air quality and length of the route.
@@ -73,13 +73,35 @@ The route is sent to the user mote publishing the massage with sub-route on its 
 The application recomputes the best route only when the user device communicates its new position and if some environment condition is changed from the previous computation.
 
 \section{Simulation in DingNet}
-% Demo + discussion limitazioni ed utilità del caso di studio????
-Here is presented simulations in small scale conducted over the city of Leuven with the DingNet simulator. 
-The environment is composed from 2 gateways, 4 fixed sensors, one mobile sensor that follows a path like a public transport, and a user that requires a route to a destination.
+
+This section presents the simulations of two possible small scale scenarios. 
+The simulations are conducted over the city of Leuven with the DingNet simulator.
+First, the setup of the two simulated scenarios is presented; then it will be discussed the simulation results in a qualitative way based on simulation snapshots.
+
+\subsection{Setup}
+Both the scenarios present a common configuration and differ only for the starting position of the user.
+The environment is composed of:
+\begin{itemize}
+    \item 2 gateways
+    \item 4 fixed sensors equipped with a set of sensors and send directly the final CAQI index value.
+    \item one mobile sensor that follows a path like a public transport. It assume the same behaviour of a fixed sensor, but is equipped also of a GPS sensors.
+    \item user that requires a route to a destination.
+\end{itemize} 
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
-\autoref{fig:sim1} shows three snapshots of a simulation run, where the transparent layer represents the air quality level in that point based on the received sensor value.
-First snapshot shows the first computed route in blue, and in red the sub-route received from the user until that moment.
-Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but it is considered better by the application combining distance and pollution. 
+In the first scenario the user start from south of the city, that is the most polluted in the simulation configuration; while in the second scenario the user start from the north of the city.
+
+\subsection{Result}
+
+\autoref{fig:sim1} and \autoref{fig:sim2} show the snapshots taken of the two simulated scenarios.
+The transparent layer represents the air quality level in that point based on the received sensor value.
+The mote number 4 is the mobile sensor and the red line is its route.
+The user is identified by the cyclist. 
+Its line (route) is of two colors: blue and red.
+The blue one is the complete route computed by the application, while the red one is the sub-route received by the user until that time. 
+
+\autoref{fig:sim1} shows three snapshots of the first simulated scenario.
+First snapshot shows the initial situation and the first computed route.
+Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better by the application, combining distance with pollution. 
 So the user has received a new sub-route of the new best route that starts from its new position.
 Finally, the last snapshot shows the user arrived to destination.
 % 
@@ -95,7 +117,8 @@ Finally, the last snapshot shows the user arrived to destination.
 \end{figure}
 % 
 
-\noindent \autoref{fig:sim2} shows a different user that requires a path for the same destination. In this case its best route never changes because the changes of the environment condition do not affect the crossed areas from its route.
+\noindent \autoref{fig:sim2} shows three snapshots of the second simulated scenario.
+In this case the user best route never changes because the change of the environment condition do not affect the crossed areas from him.
 % 
 \begin{figure}[h]
     \centering
@@ -109,8 +132,8 @@ Finally, the last snapshot shows the user arrived to destination.
 \end{figure}
 % 
 
-Although it is a simple simulation with few sensors and only one user device, it can be deduced that uses LoRa technology also for user devices is possible only in certain scenarios.
-In this scenario the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
+Although it is a simple simulation with few sensors and only one user device, it can be deduced that use LoRa technology also for user devices is possible only in certain scenarios.
+In these scenarios the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
 Moreover considering a real scenario where the number of user is higher (es. more than one thousand) the network congestion will increase with also the probability of collision among transmissions, which require re-transmission worsening the situation.
 
 \paragraph{Concluding.} This chapter has presented the case study used as reference for the simulator evolution.
