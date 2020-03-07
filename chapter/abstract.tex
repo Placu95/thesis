@@ -1,13 +1,17 @@
-Recent technological developments led to boost computational and networking capabilities of everyday objects. 
-This situation has resulted in an increase in the number of devices embedded in cyber-physical systems.
-In order to simplify the design and management of pervasive and heterogeneous systems like these, new high-level paradigms are needed that are able to capture concerns like heterogeneity and location of the devices.
+Recent technological developments led to increased computational and networking capabilities of everyday objects. 
+This situation resulted in an increase in number of devices embedded in cyber-physical systems.
+In order to simplify the design and management of pervasive and heterogeneous systems like these, there is need\todo{need or needed} for new high-level paradigms able to capture concerns like heterogeneity and location of the devices.
 Aggregate computing is one of these.
-It proposes to describe the global behaviour of a system by managing global spatio-temporal data structures, and abstracting details of its physical network, as network topology and devices communication technology.
+It proposes to describe the global behaviour of a system by managing global spatio-temporal data structures, and abstracting details of its physical network, as topology and communication technology.
 Verifying the behaviour of a complex pervasive system in a real scenario is generally expensive, complicated, and not always possible in practice.
-A solution, to partially test these systems, is with platforms that enable simulations of this kind of systems.
-
-In the Internet-of-Things context, an emergent and enabling communication technology for situated devices is LoRaWAN.
-It is a network protocol that allows long range communication and low energy consumption, with the drawback of limited data rate.
-
-Considering all, the purpose of this thesis is to start filling the network abstraction gap of the aggregate paradigm beginning with supporting aggregate computing over LoRaWAN networks.
-To do so two main activities were carried out: design the support for Protelis, which is a language for aggregate computing, over LoRaWAN, and provide a simulation platform for this kind of systems. 
+A partial solution to the problem is testing this kind of systems using simulation.
+Even if those simulations execute some model of a system and that such is not the system itself, they can still provide realistic insight on the system behaviour and performance. % minuto 4.13
+In the Internet-of-Things context, an emergent enabling communication technology for situated devices is LoRaWAN.
+LoRaWAN is a network protocol that allows long range communication and low energy consumption, at the cost of limited data rate.
+There are currently no platforms for aggregated languages that support them execution over LoRaWAN networks.
+There are also currently no simulators that support real simulation of aggregate system over LoRaWAN networks, but there are simulators that support simulation of aggregate applications or LoRaWAN networks.
+The contribution of this thesis is to provide a platform that supports the LoRaWAN abstractions as backend of an aggregate computing system, and join it to the existing DingNet simulator achieving a platform that allows the simulation of aggregate applications over realistic LoRaWAN networks. 
+% al momento per i linuaggi aggregati non ci sono piattaforme che  supportino l'esecuzione su reti lorawan, 
+% e ancor di più non ci sono nemmeno dei simulatori che abbiano del realismo che supportino sia reti lorawan che programmazione aggreggata
+% esistono però sia simulatori in grado sia sim sw aggregato sia reti lorawan
+% IL contributo di questa tesi è fornire una piattaforma che supporti le astrazioni di lora come backend di un sistema aggregate computing e collogare questa piattaforma alla sistema esistente DingNet in modo tale da avere una piattaforma che consenta di simulazione di computazione aggregate con reti lorawan realistche.

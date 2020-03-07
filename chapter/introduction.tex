@@ -1,40 +1,48 @@
 \chapter{Introduction}
 \label{chap:introduction}
-The environment in which we are immersed every day is pervaded by devices capable of computing and communicating.
-This situation leads to design smart-environment like smart-city, smart-home, smart-hospital, and so on.
-All these systems, and more in general, the cyber-physical systems (CPS), are composed of myriads of heterogeneous devices.
-The devices can differ in their computational and communication capabilities, and ability to interact with the environment in which they are immersed.
-This heterogeneity makes difficult to design open distributed and technology independent systems, particularly with regard to communication technology.
-In fact exists several wireless communication technologies that differ for their potentiality and limits, like transmission range, energy consumption, cost, and so on.
-Among all the technologies, one of the most promising is \mbox{LoRaWAN}~\cite{loraalliancetechnicalcommittee2020}, which allows transmission with low power consumption and long range.
+The every day environment we are immersed in is pervaded by devices capable of computing and communicating.
+% This situation leads to design smart-environments like smart-cities, smart-homes, smart-hospitals, and so on.
+% dato che abbiamo questi dispositivi diventa possible pensare ad amb più intelligenti che a seconda della scala
+Devices with these capabilities enable to think and design smart-environments, that accordingly to the domain and scale of the application can be smart-cities, smart-homes, smart-hospitals, and so on.
+All these systems, and more in general, the cyber-physical systems (CPSs), are composed of myriads of heterogeneous devices.
+The devices can differ in their computational and communication capabilities, and ability to interact with the environment.
+This heterogeneity makes it difficult to design open, distributed, and technology independent systems. 
+One of the most particular components to enable interoperability is the communication technology.
+In fact there exist several wireless communication technologies that differ for their features and limitation, like transmission range, energy consumption, device cost, data rate, and so on.
+One of the most promising communication technology featuring low power consumption and long communication range is \mbox{LoRaWAN}~\cite{loraalliancetechnicalcommittee2020}.
 
-To make easier design these kind of systems in literature are presents several approaches.
-One class of approaches proposes to define a global platform. 
-It should provide a uniform communication interface that allows the application to abstract from the real communication technology used by the devices. 
+In literature, several approaches exist that try to simplify the design of heterogeneous distributed situated systems.
+One class of approaches proposes the use of unifying middlewares.
+The devices applications are supposed to leverage it in order to be able to communicate with each other. \todo{???}
 One example is Sentilo\footnote{\href{http://www.sentilo.io}{http://www.sentilo.io}}, a cross platform middleware designed for the smart-city of Barcelona.
-It provides a simple REST interface to send and receive sensor data, and a set of core modules to govern the system like real time storage, and network security. 
+It provides a simple REST interface to send and receive sensor data, and a set of core modules to govern the system, like real time storage, and network security. 
 Its architecture is extendible and allows horizontal scalability from single servers to cluster.
-% 
-Another approach is the aggregate computing paradigm~\cite{BealIEEEComputer2015}.
-It increases the level of abstraction respect the previous one, allowing to define programs where the programmable entity is not the single entity but the all set of devices.
+A different take on the problem is proposed by global to local paradigms.
+These paradigms do not focus on programming single device and on their communication, but they try to interpret the whole system as a single computational machine with a space-time extension and to program it.
+Aggregate computing~\cite{BealIEEEComputer2015} is one of these paradigms and proposes a devoted language.
+The language considers the entire set of system devices as a single computational machine; further, it abstracts from the specific network protocols used at low level.
+% paradigmi che invece di concentrarsi sulla programmazione dei singoli dispositivi e della loro comunicazione, ma cercano di interpretare l'intero sistemo come una macchina con una estensione spazio temporale e cercano di programmare quella macchina li.
+% tra questi approcci c'è aggregate computin che propone un linguaggio dedicato che considera come unica macchina computazionale l'insieme dei dispositivi e che astrae completamente dagli specifici protocolli di rete che vengono adottati nei livelli inferiori
 
-The behaviour of a complex pervasive system, and moreover of an aggregate system, cannot be tested on a single machine; at the same time, testing in the real world is usually inconvenient, complex, and expensive, or even straightforwardly impossible.
+The behaviour of a complex pervasive system, and of an aggregate system as well, cannot be tested on a single machine; at the same time, testing in the real world is usually inconvenient, complex, and expensive, or even straightforwardly impossible.
 A partial solution to test the behaviour of a system prior to deployment is via simulation.
-In literature exists several simulator for different domains and with different models to allow simulations at different abstraction levels.
+There are several simulators that aim to simulate Internet-of-Things (IoT) systems.
+These simulators can capture different levels of abstractions and be generic or specific for some application domains.
+Generally, the more you increase the flexibility of the simulator, the more you pay in performance or lose in the proximity between the real system and the executed model.
+% esistono diversi simulatori che si pongono come obbiettivo quello di simulare sistemi IoT.
+% questi simulatori possono catturare diversi livelli di astrazioni o essere generici o specifici per qualche domincio, tendenzialmente più si alza la flessibilità del simulatore si paga in performance o si perde in vicinanza tra il sistema reale e il modello eseguito 
 One simulation tool, designed in University of Bologna, is Alchemist~\cite{PianiniJOS2013}.
-Alchemist has been used in the past, for instance, for simulating: crowd detection~\cite{FGCS2017, TOMACS2018} and evacuation~\cite{DBLP:journals/corr/abs-1711-08297}, for mixed edge-cloud computation~\cite{Coordination2019-sgcg}, opportunistic instant messaging~\cite{Coordination2019-processes}, smart vehicle counting~\cite{Viroli2016}, etc.
-So Alchemist allows also simulation of aggregate systems, but it actually does not allow to simulate the behaviour of a communication network, like a LoRaWAN one, in a realistic way.
-Another relevant platform, but specialized to simulate the behaviour of a LoRaWAN network on large scale is the DingNet Simulator~\cite{inproceedings}.
-This platform is useful to simulate CPS that includes a high number of Long Range (LoRa)-based devices; considering also the high-density of devices that can be integrated in these networks~\cite{Lavric2019}. 
+Alchemist has been used in the past, for instance, for simulating: crowd detection~\cite{FGCS2017, TOMACS2018} and evacuation~\cite{DBLP:journals/corr/abs-1711-08297}, mixed edge-cloud computation~\cite{Coordination2019-sgcg}, opportunistic instant messaging~\cite{Coordination2019-processes}, smart vehicle counting~\cite{Viroli2016}, etc.
+Alchemist allows simulating aggregate systems, but it abstracts from the network specifications, and along this calls the realistic simulation of networking protocol and physical layers.
+A specialised platform for simulating the network layer and dedicated to LoRaWAN system is DingNet. %
+This platform is useful to simulate CPSs that includes a high number of Long Range (LoRa)-based devices; considering also the high-density of devices that can be integrated in these kind of networks~\cite{Lavric2019}. 
 
-Considering all, the purpose of this thesis is to start filling the network abstraction gap of the aggregate paradigm beginning with supporting aggregate computing over LoRaWAN networks.
+The purpose of this thesis is to allow the simulation of aggregate programs on a network of LoRaWAN devices.
 To do so two main activities will be performed: 
 \begin{itemize}
-    \item design the support for Protelis, which is a language for aggregate computing, over LoRaWAN
-    \item provide a simulation platform for this kind of systems,
-    that should also allow to deploy the simulated systems in real networks with a low effort.
+    \item design and implementation of a LoRaWAN network platform for the Protelis~\cite{PianiniSAC2015} programming language;
+    \item design and implement a connection layer between the existing DingNet simulator and the above mention platform for the execution of Protelis program.
 \end{itemize}
-To obtain the desired simulation platform, choosing DingNet as baseline, will be necessary to improve and evolve it adding all the needed functionalities. 
 
 %
 \paragraph{Thesis Structure.} % Optional paragraph title
@@ -42,11 +50,9 @@ To obtain the desired simulation platform, choosing DingNet as baseline, will be
 Accordingly, the reminder of this thesis is structured as follows.
 %
 \Cref{chap:background} provides an overview of the aggregate computing paradigm, \mbox{LoRaWAN} protocol, and the DingNet simulator.
-%
-\Cref{chap:contribution} presents the work done to improve DingNet and evolve it in a platform that supports aggregate computing applications.
-%
-\Cref{chap:case-staudyLoRa} presents a case study developed on DingNet simulator after its evolution for the Day of Science in Flanders.
+% presenta il layer che migliora dingnet aggiungendo il supporto per la parte applicativa dentro lorawan e il lavoro che è stato fatto per consentire a protelis di eseguire su una rete LoRaWAN
+\Cref{chap:contribution} presents the connection layer, which improve DingNet adding the support to execute applications over LoRaWAN, and the work done to allow the execution of Protelis application over the LoRaWAN network.
+%  
+\Cref{chap:case-staudyLoRa} and \Cref{chap:case-staudyAC} introduce two case-studies developed in the new simulation framework. \todo{modify when make only 1 chapter}
 % 
-\Cref{chap:case-staudyAC} presents a case study where an aggregate computing application is simulated in the DingNet simulator.
-% 
-Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution, and presenting future works.
+Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution and presenting future works and interesting topic to evaluate.

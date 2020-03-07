@@ -1,64 +1,62 @@
 \chapter{Contribution}
 \label{chap:contribution}
-This chapter explains the contribution of this thesis. \Cref{sec:contributionDingNet} starts presenting all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} presents  the work done to support the execution of aggregate computing program over the DingNet simulator, and in particular Protelis program. 
+This chapter explains the contribution of this thesis. \Cref{sec:contributionDingNet} starts presenting all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} presents  the work done to support the execution of aggregate computing programs over the DingNet simulator, and in particular Protelis programs. 
 
 \section{Extension and evolution to DingNet}
 \label{sec:contributionDingNet}
 This section presents all the improvements and extensions applied to the DingNet simulator to achieve an extendible and configurable simulator, which simulates the entire LoRa-over-MQTT network. 
-Previous works on the simulator were focused mainly on three areas:
+Previous work on the simulator were focused mainly on three areas:
 \begin{enumerate}
     \item \textbf{LoRaWAN communications}: simulation of bi-directional communication between LoRa motes and LoRa gateways
     \item \textbf{GUI}: provide a good user interface that simplifies the configuration of simulations and allows the user to see the simulations results
     \item \textbf{Self-adaptive applications}: evaluation of algorithms to reduce the energy consumption for LoRa motes communications, but ensuring that each transmission is received at least from one gateway.
 \end{enumerate}
-The following part of the section presents the contribution to the DingNet simulator (part of this work was done in collaboration with Federico Quin, a PhD student at KU Leuven).
+The following part of the section presents the contribution to the DingNet simulator (part of this work has been done in collaboration with Federico Quin, a PhD student at KU Leuven).
 \clearpage
 \subsection{Build tool and Continuous Integration}
-After a first study of the simulator's project, it was noticed the absence of a build tool to manage project's dependency, build, and execution, so the first action was been to add it. 
-In a first moment was chosen \textit{Apache Maven} as build tool, but then \textit{Gradle} was preferred to it for several reasons\footnote{ \href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main reasons that guided this change are: performance, highest readability of project's configuration file due to a less verbosity syntax, and better script support (with possibility to write them in kotlin with \textit{Gradle Kotlin DSL}). 
+After a first study of the simulator's project, it has been noticed the absence of a build tool to manage project's dependency, build, and execution, so the first action has been to add it. 
+In a first moment has been chosen \textit{Apache Maven} as build tool, but then \textit{Gradle} has been preferred to it for several reasons\footnote{ \href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main reasons that guided this change are: performance, highest readability of project's configuration file due to a less verbose syntax, and better script support (with the possibility to write them in kotlin with \textit{Gradle Kotlin DSL}). 
 
 In the context of project management another important aspect is the continuous integration.
 It is useful to build and test the project in an automatic way in different and fresh environments. 
-As continuous integration service to test the project in all the main operative systems (linux, windows, and osx) and with different java versions (11 and 12) was chosen \textit{Travis-CI}\footnote{\href{https://travis-ci.com/}{https://travis-ci.com (Feb 2020)}}.
-Travis-CI was chosen because it is free and well integrated with \textit{GitHub} that host the project.
+As continuous integration service to test the project in all the main operative systems (linux, windows, and osx) and with different java versions (11 and 12) has been chosen \textit{Travis-CI}\footnote{\href{https://travis-ci.com/}{https://travis-ci.com (Feb 2020)}}.
+Travis-CI has been chosen because it is free and well integrated with \textit{GitHub} that host the project.
 
 \subsection{Code improvement}
-Before start to evolve the simulator it was been necessary to carry out a phase for improve the code already present. 
+Before start to evolve the simulator it was necessary carry out a phase to improve the code already present. 
 This phase has the aim to improve the readability of the code and apply the KISS principle to prevent possible bug.
-The main actions was been: use of base type and base interface instead class type, reduce code duplication reorganizing code or moving it inside method, remove magic number replacing them with constants, avoid to use useless functions, define unit of measure of physical concepts, apply tools for style checking to guarantee code readability over time.
+The main actions have been: use of base type and base interface instead class type, reduce code duplication reorganizing code or moving it inside method, remove magic number replacing them with constants, avoid useless functions, define unit of measure of physical concepts, apply tools for style checking to guarantee code readability over time.
 
 \subsection{Spatial reference system}
 The first important intervention involves the spatial reference system (SRS) of the simulation environment. Original SRS was a discrete one and this leads to:
 \begin{itemize}
-    \item low precision for displacement of gateways and motes in the environment
+    \item low precision in displacement of gateways and motes in the environment
     \item mobile motes assume a Manhattan movement style to move from a point A to a point B. 
 \end{itemize}  
-To increase the precision for the displacement of the entities and move mobile motes from point A to B with straight lines it was been necessary to convert the discrete SRS to a continuous one. 
+To increase the precision for the displacement of the entities and move mobile motes from point A to B with straight lines it has been necessary to convert the discrete SRS to a continuous one. 
 
 \subsection{Change representation of the time}
-Another important intervention involves the representation of the time of simulation. Previously the time was represented by the java class \mbox{\textit{LocalTime}}. This representation has two problems. 
+Another important intervention involves the representation of the simulation time.
+Previously the time was represented by the java class \mbox{\textit{LocalTime}}. 
+This representation has two problems. 
 The first problem is that it does not allow to execute simulation with duration of more than one day, because it does not include the concept of \textit{day}. 
 The second one is that it does not allow direct manipulation of the time based on the unit of measure of milliseconds, which is the mainly unit used inside the simulator.
-To solve both the previous problems was introduced an own concept of time. 
+To solve both the previous problems is introduced an own concept of time. 
 This representation of the time, figured in \autoref{fig:time}, allows to manipulate it in a simply way providing different methods for the different units of measure.
 \begin{figure}[h]
     \centering
     \includegraphics{figures/time.png}
-    \caption[Time representation in DingNet simulator]{Time representation that provides all the basic functionality.}
+    \caption[Time representation in DingNet simulator]{Time representation that provides all the basic functionalities.}
     \label{fig:time}
 \end{figure}
-
-% \subsection{Change simulation loop}
-% redesing simulation loop using timer event instead loop with time checking,
 
 \subsection{Communication protocol between mote and gateway}
 %  communication protocol mote-gateway (interface sender and receiver).
 In the LoRaWAN protocol every mote can start a transmission at every time based on its needs, without checks the transmission medium (ALOHA-like protocol).
-Actually the simulator implements this behaviour inside the class \mbox{\textit{NetworkEntity}}, that is the base class for \mbox{\textit{Gateway}} and \mbox{\textit{Mote}}. 
-This architecture was modified with the new one presented in \autoref{fig:sendRec}. 
-The new architecture generalizes the behaviour and it allows to to evaluate the network behaviour with several variants of ALOHA-like protocol.
-% To generalize this behaviour and allow to evaluate the network behaviour with several variants of ALOHA-like protocol it is modified the existing architecture with that proposed in \autoref{fig:sendRec}.
-\mbox{\textit{Sender}} interface defines methods to send a packet, check the transmission status, and manage parameters that influence the transmission; while the \mbox{\textit{Receiver}} interface defines methods to receive incoming transmissions, and allow to the \mbox{\textit{NetworkEntity}} to specify how manage them.
+Actually the simulator encapsulates this behaviour inside the class \mbox{\textit{NetworkEntity}}, that is the base class for \mbox{\textit{Gateway}} and \mbox{\textit{Mote}}. 
+This architecture is modified with the new one presented in \autoref{fig:sendRec}. 
+The new architecture generalizes the behaviour and it allows to evaluate the network behaviour with several variants of ALOHA-like protocol.
+\mbox{\textit{Sender}} interface defines methods to send a packet, check the transmission status, and manage parameters that influence the transmission; while the \mbox{\textit{Receiver}} interface defines methods to receive incoming transmissions, and allows to the \mbox{\textit{NetworkEntity}} to specify how manage them.
 \begin{figure}[h]
     \centering
     \includegraphics{figures/sendRec.png}
@@ -68,12 +66,12 @@ The new architecture generalizes the behaviour and it allows to to evaluate the 
 
 \subsection{Managing of incoming message to a LoRa mote}
 The LoRaWAN protocol allows communication from gateways to motes, also if it is discourage for physical limitation of the transmission medium. 
-The simulator already supports this communication, but it is designed only the structure to manage \textit{MAC Commands} (special commands exchange between network server and motes for network administration) motes side.
-To complete the managing of incoming message to a LoRa mote allowing to use all the information presents in the payload it was designed the architecture presented in \autoref{fig:consume}.
+The simulator partially supports this communication: it is designed only the structure to manage \textit{MAC Commands} (special commands exchange between network server and motes for network administration) motes side.
+To complete the managing of incoming messages to a LoRa mote, allowing to use all the information presents in the payload, the architecture presented in \autoref{fig:consume} is designed.
 \mbox{\textit{ReceivedPacketStrategy}} defines the strategy to use to store all the incoming packets and manage the pending queue of packets to consume.
 \mbox{\textit{ConsumePacketStrategy}} defines how use the information in the payload to produce a side-effect on the LoRa mote or on the environment. 
-Every mote can have a list of \mbox{\textit{ConsumePacketStrategy}} that are performed in an ordered way with strategy that can use or ignore the packet.
-\autoref{fig:consume} shows two implementation for the \mbox{\textit{ReceivedPacketStrategy}}, and none for \mbox{\textit{ConsumePacketStrategy}}. This because the first strategies are cross domain while the second ones are domain specific respect the simulated application.
+Every mote can have a list of \mbox{\textit{ConsumePacketStrategy}}, which are performed in an ordered way with strategy that can use or ignore the packet.
+\autoref{fig:consume} shows two implementation for the \mbox{\textit{ReceivedPacketStrategy}}, and none for \mbox{\textit{ConsumePacketStrategy}}. This because the first strategies are cross domain while the second ones are domain specific in respect of the simulated application.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/consumePacket.png}
@@ -83,7 +81,7 @@ Every mote can have a list of \mbox{\textit{ConsumePacketStrategy}} that are per
 
 \subsection{Communication between Gateways and Applications}
 In a LoRa-over-MQTT network, communications between gateways and applications are MQTT based and intermediated by the network server.
-Actually in the simulator missing both the network server and MQTT communication. 
+Actually in the simulator missing both the network server and the MQTT communication. 
 So to simulate in a batter way the network's behaviour it is necessary to implements both.
 
 \subsubsection{MQTT communication}
@@ -94,7 +92,6 @@ In addition to emulating the MQTT behaviour, the following requirements for the 
 \end{itemize}
 To fulfill Req1 it is necessary to allow to switch client implementation in a simple and fast way (for example from a mock implementation to a real one).
 To do so it has been defined the interface \mbox{\textit{MqttClient}}, avoiding to use directly a particular implementation.
-% To fulfill Req1 it is necessary to avoid to use directly reference to a particular implementation, so was been defined the interface \mbox{\textit{MqttClient}}.
 It represents a MQTT client and it provides all the basic functionalities to interact with a MQTT broker. 
 This interface allows to use custom implementations of MQTT client or external libraries implementing a wrapper extending the interface.
 % 
@@ -110,18 +107,18 @@ This requires to specify the receiving message type during the topic subscriptio
     \label{fig:mqtt}
 \end{figure}
 
-\noindent The designed architecture is not valid only for this project, but it is reusable in different project, so it was decided to export it as external library. The library is actually available on github\footnote{\href{https://github.com/Placu95/MqttClientWrapper}{https://github.com/Placu95/MqttClientWrapper}} and a release on Maven Central Repository is planned shortly.
+\noindent The designed architecture is not valid only for this project, but it is reusable in different project, so it is decided to export it as external library. The library is actually available on github\footnote{\href{https://github.com/Placu95/MqttClientWrapper}{https://github.com/Placu95/MqttClientWrapper}} and a release on Maven Central Repository is planned shortly.
 
 \subsubsection{Network server}
 The network server is the entity appointed to regulate the communication between gateways and applications, but there isn't any specification that define which tasks has to perform and which is its architecture. 
 Different providers propose different solutions. 
 The solution designed for the simulator is composed from an autonomous simulator entity and performs two tasks:
 \begin{enumerate}
-    \item filtering of duplicated message in communication from gateways to applications
+    \item filtering of duplicated messages in communication from gateways to applications
     \item selections of the best gateway to deliver an application's message to a LoRa mote. 
     Default strategy to choose the gateway selects the gateway that has received the last transmission from the LoRa mote with more transmission power, but it is possible to change it defining different strategies. 
 \end{enumerate}
-\autoref{fig:GtoA} presents the new communication schema from a gateway that receive a LoRa transmission to the application; while \autoref{fig:AtoG} presents the new communication schema from an application, that wants to send a message to a LoRa mote, to the selected gateway that performs the LoRa transmission.
+\autoref{fig:GtoA} presents the new communication schema from a gateway, which receives a LoRa transmission, to the application; while \autoref{fig:AtoG} presents the new communication schema from an application, which wants to send a message to a LoRa mote, to the selected gateway that performs the LoRa transmission.
 \begin{figure}[h]
     \centering
     \begin{subfigure}{.495\textwidth}
@@ -139,19 +136,19 @@ The solution designed for the simulator is composed from an autonomous simulator
 \end{figure}
 
 \subsection{Timed run}
-The simulator allows to execute two type of simulation: single run simulation and multiple run simulation, which consists simply in run more time a single run simulation. 
+The simulator allows to execute two types of simulations: single run simulations and multiple run simulations, which consist simply in run more time a single run simulation. 
 A single run simulation finishes when all the mobile LoRa motes arrive to the respective destination. 
-This behaviour is limiting because it is impossible execute simulation with only fixed LoRa mote or simulation that continues also after then every mote is arrived to destination. 
-To go beyond these limitations it was introduced a new type of simulation: the \textit{Timed run} simulation. 
-This type of simulation differs from the single run only for the condition of termination. 
-The condition requires to define the duration of the simulation, so evaluates it as finished when is passed the defined time.
+This behaviour is limiting because it is impossible execute simulations with only fixed LoRa mote or simulations that continue also after then every mote is arrived to destination. 
+To go beyond these limitations a new type of simulation is introduced: the \textit{Timed run} simulation. 
+This type of simulation differs from the single run only for the termination condition. 
+The condition requires to define the duration of the simulation, so the condition evaluates it as finished when the defined time is passed.
 
 \subsection{Ranged sensor}
 The DingNet simulator was developed to simulate self-adaptative applications based on received LoRa transmissions, so until now the real content of LoRa packet's payload was ignored.
 The behaviour of different kinds of applications could instead depend from the payload. 
 The idea is to define a new type of sensor that produces values in a configurable way splitting the region of simulation in a matrix of configurable dimension. 
 So for each cell of the matrix it is defined a list configurations. 
-Each cell's configuration defines the starting time of validity and the range for the value to produce. 
+Each cell's configuration defines the starting time of validity and the range of producible values. 
 Then starting from this configuration is produced a tricubic spline interpolation function where the three variable are: the two coordinates of the matrix and the time; while the result is the corresponding sensor value.
 Finally, when a mote requires a new value to the the sensor, it produces the value considering the mote position and the simulation time.
 The result is that each sensor inside the same cell produces the same value at the same time. 
@@ -179,16 +176,13 @@ The actual file format for the sensor configuration file is \textit{toml}\footno
 This section presents the integration between the aggregate computing paradigm and a LoRa-over-MQTT network like DingNet; enabling the simulation of aggregate applications on this platform.
 Firstly, to join these two concepts is necessary to define how map the networks entities in an aggregate computing system, and secondly identifies potentially additional requirements or limitations for these entities.
 In the aggregate computing viewpoint, a system is composed of a set of distributed heterogeneous computational entities, called nodes. Nodes execute the same global program and communicate with a subset of them defined by a neighbourhood policy. 
-In a LoRaWAN network the main entities are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
-So following the previous vision is natural mapping each LoRa mote in a node that represents its digital twin (from now on called LoRa node) inside the aggregate system.
-\\On one hand, LoRa nodes can be considered as generic nodes and do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours. 
+While, in a LoRaWAN network the main entities are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
+So following the aggregate vision is natural mapping each LoRa mote in a node that represents its digital twin (from now on called LoRa node) inside the aggregate system.
+\\On one hand, LoRa nodes can be considered as generic nodes and they do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours. 
 But at the other hand, they have to support communication via MQTT to enable bidirectional communication with the respective physical counterparts.
-% If LoRa nodes, on one hand, can be considered as generic nodes and do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours; at the other hand they have to support communication via MQTT. 
-% This requirement is necessary to enable bidirectional communication with the respective physical counterparts.
-Finally, it is necessary to analyse if all the network entities can host the aggregate nodes or only some of them.
-% Finally, if on one hand LoRa motes were identified as the only entities of interest at application level, on the other hand, it is necessary to analyse which network entities can host the aggregate nodes. 
+Finally, it is necessary to analyse if all the network entities, or only some of them, can host the aggregate nodes.
 In \cite{CCNCPS2018} the authors present a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluations of the proposed solution, they identify some issues due to the physical limitations of the communication technology. 
-While these issues do not allow to execute aggregate computing program directly on the LoRa motes, they are not valid for the others network entities and there is any paper that identifies others possible issues.
+These issues do not allow to execute aggregate computing program directly on the LoRa motes, but they are not valid for the others network entities and there is any paper that identifies others possible issues.
 Even if all the LoRaWAN network entities excluded the motes can host the aggregate node (LoRa nodes or others types of nodes), it is important to specify a limitation for the LoRa nodes. 
 The LoRa nodes can interact with the respective LoRa mote only following the interaction schema defined from the LoRa-over-MQTT networks. 
 For example, if a LoRa node is hosted by a LoRa gateway, that receives directly the transmissions of the respective LoRa mote, it cannot receive directly the packet, but it has to wait that the packet is published on the MQTT broker.
@@ -201,14 +195,14 @@ The only things to do to enable the develop of Protelis applications over the Di
 The only requirement identified to support LoRa nodes inside an aggregate computing system is that they have to support MQTT communication. 
 \fi
 That requirement represents a specific capability of this type of nodes and Protelis defines a single place appointed to host it, the \mbox{\textit{ExecutionContext}}.
-\autoref{fig:execContext} shows the model of the \mbox{\textit{ExecutionContext}} designed for LoRa nodes. 
+\autoref{fig:execContext} shows the model of the \mbox{\textit{ExecutionContext}} designed for the LoRa nodes. 
 \begin{figure}[H]
     \centering
     \includegraphics{figures/execContext.png}
     \caption{Model of \textit{ExecutionContext} for LoRa nodes}
     \label{fig:execContext}
 \end{figure}
-\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information. So it is defined \mbox{\textit{PositionedExecutionContext}} that extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
+\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information. So \mbox{\textit{PositionedExecutionContext}} is defined, which extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
 \mbox{\textit{LoRaNodeExecutionContext}} is the basic execution context for a LoRa node that:
 % 
 \begin{itemize}
@@ -228,7 +222,7 @@ Protelis applications with the model presented in \autoref{fig:appP} are not onl
 \end{figure}
 % 
 \noindent To execute Protelis applications on the top of DingNet simulator, enabling the simulation of Protelis applications composed of LoRa nodes, is necessary one last small operation: unify the concept of time. 
-This operation is necessary because the behaviour of every Protelis node depends also from the time in which the LoRa packets are received.
+This operation is necessary because the behaviour of every Protelis node depends also from the time in which their execution is scheduled, and the LoRa packets are received.
 To do this it is sufficient wrapping the \mbox{\textit{LoRaNodeExecutionContext}} using the simulator time concept.
 
 \paragraph{Concluding.} This chapter has presented the main works done during this thesis. First it has presented the improvements and evolution of the DingNet simulator model. Then it has presented the support to simulate Protelis application inside the DingNet simulator. 

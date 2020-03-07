@@ -7,7 +7,7 @@ A demo from this case study was showed during the Day of Science in Flanders to 
 \section{Case study description}
 Leuven is a cycling city where most of the inhabitants and students use daily their bike to move across the city. 
 In this context we want to realize a system able to provide to the user the healthiest route to reach a destination. 
-The route generation will be based on air quality level, based on the CAQI index~\cite{CAQI}, of the crossed areas to reach the destination. 
+The route generation will be based on the air quality level, based on the CAQI index~\cite{CAQI}, of the crossed areas to reach the destination. 
 The user, in order to obtain the route, has to require it to the application deployed in a remote server.
 The system uses data received from the sensor network to create a city map of quality air.
 Then, the application has to define the route to a destination that optimize the trade-off between air quality and length of the route.
@@ -40,21 +40,21 @@ Using the DingNet simulator to simulate the LoRaWAN network:
 % 
 \subsection*{Interaction between application and devices}
 If on one hand the transmissions from the devices (both sensor and user) to the application are in compliance with the maximum packet's length defined by the LoRaWAN standard (1 byte for packets with the sensed value, and 16 bytes for the packet to require the route); on the other hand it is impossible to send the packet from application to the user device with the entire route, so the only way to do it is to split the packet.
-In order to send the entire route to the user device, two approaches are possible: 
+In order to send the entire route to the user device, two approaches are available: 
 \begin{enumerate}
     \item define a specific interaction protocol to send all the packets with the entire route to the user device immediately after its computation
-    \item send a packet with part of the route only when the user has finish the previous part of the route.
+    \item send a packet with part of the route only when the user has finished the previous part of the route.
 \end{enumerate}
-Considering also the requirement to recompute the route if the environment condition change it was chosen the second option, enabling to recompute the route before send its next part.
+Considering also the requirement to recompute the route if the environment condition change, the second option is chosen, enabling to recompute the route before send its next part.
 
 \subsection*{Design of the user device}
 % UserMote - consume packet
 The user device has to perform three activity: require the route, send update of its position, and manage the incoming packets.
 If on one hand the last two activity can be performed also from a \textit{Mote}, on the other hand it cannot require the route.
-For this reason in \autoref{fig:userMote} is introduced a new entity simulator, the \textit{UserMote}. 
+For this reason in \autoref{fig:userMote} a new entity simulator is introduced, the \textit{UserMote}. 
 It extends the \textit{Mote} adding the logic to require the route when needed sending a packet with starting and destination positions.
 Then to manage incoming packets are chosen \textit{MaintainLastPacket} as strategy to store them until that they are consumed, and \textit{ReplacePath} as only strategy to consume them.
-It consumes each packet updating the user route in accord with the packet content until the route is completed.
+It consumes each packet updating the user route in accord with the packet payload until the route is completed.
 To perform the last activity, send updating of the user position, is only necessary add the GPS sensor to the \textit{UserMote}, and send it when the user is closer to the sub-route destination.
 % 
 \begin{figure}[h]
@@ -76,7 +76,7 @@ The application recomputes the best route only when the user device communicates
 
 This section presents the simulations of two possible small scale scenarios. 
 The simulations are conducted over the city of Leuven with the DingNet simulator.
-First, the setup of the two simulated scenarios is presented; then it will be discussed the simulation results in a qualitative way based on simulation snapshots.
+First, the setup of the two simulated scenarios is presented; then the simulation results discussed in a qualitative way based on simulation snapshots.
 
 \subsection{Setup}
 Both the scenarios present a common configuration and differ only for the starting position of the user.
@@ -88,11 +88,11 @@ The environment is composed of:
     \item user that requires a route to a destination.
 \end{itemize} 
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
-In the first scenario the user start from south of the city, that is the most polluted in the simulation configuration; while in the second scenario the user start from the north of the city.
+In the first scenario the user start from the south of the city, which is the most polluted in the simulation configuration; while in the second scenario the user starts from the north of the city.
 
 \subsection{Result}
 
-\autoref{fig:sim1} and \autoref{fig:sim2} show the snapshots taken of the two simulated scenarios.
+\autoref{fig:sim1} and \autoref{fig:sim2} show snapshots taken from the two simulated scenarios.
 The transparent layer represents the air quality level in that point based on the received sensor value.
 The mote number 4 is the mobile sensor and the red line is its route.
 The user is identified by the cyclist. 
@@ -102,7 +102,7 @@ The blue one is the complete route computed by the application, while the red on
 \autoref{fig:sim1} shows three snapshots of the first simulated scenario.
 First snapshot shows the initial situation and the first computed route.
 Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better by the application, combining distance with pollution. 
-So the user has received a new sub-route of the new best route that starts from its new position.
+So the user has received a new sub-route of the new best route that starts from its actual position.
 Finally, the last snapshot shows the user arrived to destination.
 % 
 \begin{figure}[h]
@@ -118,7 +118,7 @@ Finally, the last snapshot shows the user arrived to destination.
 % 
 
 \noindent \autoref{fig:sim2} shows three snapshots of the second simulated scenario.
-In this case the user best route never changes because the change of the environment condition do not affect the crossed areas from him.
+In this case the user best route never changes because the change of the environmental conditions do not affect the areas crossed by him.
 % 
 \begin{figure}[h]
     \centering
@@ -127,14 +127,14 @@ In this case the user best route never changes because the change of the environ
          \includegraphics[scale=0.42]{figures/sim2snap2.png} &
          \includegraphics[scale=0.42]{figures/sim2snap3.png} 
     \end{tabular}
-    \caption[Three snapshots of a simulation run without changing of the route]{Three snapshots of a simulation run without changing of the route despite the change of the environment conditions.}
+    \caption[Three snapshots of a simulation run without changing of the route]{Three snapshots of a simulation run without changing of the route despite the change of the environmental conditions.}
     \label{fig:sim2}
 \end{figure}
 % 
 
-Although it is a simple simulation with few sensors and only one user device, it can be deduced that use LoRa technology also for user devices is possible only in certain scenarios.
+Although they are simple simulations with few sensors and only one user device, it can be deduced that use LoRa technology also for user devices is possible only in certain scenarios.
 In these scenarios the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
-Moreover considering a real scenario where the number of user is higher (es. more than one thousand) the network congestion will increase with also the probability of collision among transmissions, which require re-transmission worsening the situation.
+Moreover considering a real scenario where the number of user is higher (es. more than one thousand) the network congestion will increase with also the probability of collisions among transmissions, which require re-transmission worsening the situation.
 
 \paragraph{Concluding.} This chapter has presented the case study used as reference for the simulator evolution.
 It has helped to consider the behaviour of all the network facilities and the bi-directional communication schema.
