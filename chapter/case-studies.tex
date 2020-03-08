@@ -1,0 +1,27 @@
+\chapter{Case studies}
+\label{chap:case-studies}
+This chapter illustrates two case studies developed on the DingNet simulator.
+
+The case study in \cref{sec:case-staudyLoRa} shows a the DingNet platform after its extension.
+The main new features used are the application layer that enables the communication between LoRaWAN gateways and applications, the managing of the incoming messages mote-side, and the new type of sensor.  
+To do so, a system that requires a bi-directional communication between the application and the motes, and with the application behaviour dependent on the payload of the motes packets is conceived.
+
+The case study in \cref{sec:case-staudyAC} exploits all the new features added in the DingNet simulator.
+It uses the integration for the execution of Protelis application over DingNet, and the new type of simulation (\textit{TimedRun}) in addition to the features already used in the previous case study.
+% unire i due capitoli
+% avere due macro sezioni -> uno per caso
+% farlo vedere come lavoro progressivo
+% come prima cosa si vuole mettere in opera la piattaforma dingnet estesa con i nuovi requisiti ecc, per esercitarli si è pensato ad un caso di studio pensato in questa maniera con blabla 
+% il secondo case study invece esercita la piattaforma alla sua piena potenza quindi sfrutta il già testato ambaradm di dingnet esteso e la nuova integrazione di protelis su dingnet
+
+\input{chapter/case-studyLoRa}
+\input{chapter/case-studyAC}
+
+
+\paragraph{Concluding remarks.} This chapter illustrated two case-studies developed on the DingNet simulator.
+The first one showed the new application layer of the simulator and the new main features. It confirmed the validity of LoRaWAN as enabling technology for a sensor network and its limits regarding the communication from application to LoRa devices.
+The second case study showed an application developed using all the features of the platform and proved its validity as platform to simulate Protelis applications.
+
+% This chapter has presented the case study used as reference for the simulator evolution. It has helped to consider the behaviour of all the network facilities and the bi-directional communication schema. It has confirmed the validity of LoRaWAN as enabling technology for a sensor network and its limits regarding the communication from application to LoRa devices.
+
+% \paragraph{Concluding.} This chapter has presented a system designed with the aggregate computing paradigm over a LoRaWAN network, and simulated it in the DingNet simulator. After all the improvements and extensions on DingNet simulator, this case study has showed how it is possible simulate Protelis applications in this platform.

@@ -1,9 +1,8 @@
-\chapter{Case study: Monitoring and control of air quality}
+\section{Case study: Monitoring and control of air quality}
 
-\label{chap:case-staudyAC}
-This chapter presents a case study that joins the aggregate computing paradigm and a LoRaWAN network. Finally, it shows a simulation of the case study in the DingNet simulator.
+\label{sec:case-staudyAC}
+% This chapter presents a case study that joins the aggregate computing paradigm and a LoRaWAN network. Finally, it shows a simulation of the case study in the DingNet simulator.
 
-\section{Case study description}
 Nowadays air pollution is a very common problem of cities of all the world.
 Two of the main strategies used to reduce the emission of polluting gas are traffic bans in strategic city's areas, and maximum temperature allowed in public and private building heating.
 
@@ -19,7 +18,7 @@ All the sensors have to be displaced in a LoRaWAN network to communicate their s
 Building devices have not any particular requirements, they have not problems of energy consumption because they can be connected to the power line of the building.
 The same policy can be adopted for the Internet connection, this allows to avoid to use LoRa technology reducing the number of LoRa devices in the network and increasing their communication capability.
 
-\section{Design of the system}
+\subsection{Design of the system}
 
 Aggregate computing is a good approach for this system for several reasons.
 First of all, it is a heterogeneous system composed for at least two types of devices (sensor and building device) with different capabilities like connectivity, computational resources, and their interaction with the environment. 
@@ -31,7 +30,7 @@ Furthermore it is composed from an high number of devices (one device building f
     \caption{High level architecture of the system}
     \label{fig:caseStudyAC}
 \end{figure}
-\\Designing the system with the aggregate computing is important to model the two different kind of entities and the communication network for the aggregate nodes.
+\\Designing the system with the aggregate computing is important to model the two different kind of devices and the communication layer of the aggregate nodes.
 
 \subsection*{Sensors and building devices models}
 The sensor devices are LoRa motes, so they are mapped in \mbox{\textit{Mote}} inside DingNet, while, according to \cref{sec:PoverD}, in the aggregate application they can be mapped in simple \mbox{\textit{ProtelisLoRaNode}}.
@@ -61,27 +60,26 @@ Anyway it is decided to map them in \mbox{\textit{BuildingNode}}, which extends 
     \caption{Model of the aggregate entities.}
     \label{fig:caseBmodel}
 \end{figure}
+
 \subsection*{Interaction between Protelis nodes}
-To complete the backend required from a Protelis application we need to:
+In order to complete the Protelis backend is required to implement the communication layer. It has to:
 \begin{enumerate}
+    \item define the neighbourhood policy to determine the neighbours of each node.
     \item design and implement the communication between the Protelis nodes
-    \item define the neighbourhood policy to define the neighbours of each node.
 \end{enumerate}
 As neighbourhood policy a distance based one is chosen. 
-This policy is chosen considering the application domain, in fact the behaviour of each node depends on the environment state in its area. 
-
-\noindent To implement the \mbox{\textit{NetworkManager}} and enable the communication between Protelis nodes it is chosen to use MQTT.
-MQTT is chosen because it is a lightweight protocol and enable devices to send the same message to more devices with only one communication.
-This is very important in a large scale system where the nodes are displaced in many places and the connectivity can go down.
-
-\noindent This system is composed also from mobile nodes and when one node change position its neighbours can change, as the neighbourhood of other nodes. 
-So the definition of the neighbourhood cannot be done only at configuration time, but also after.
-To do that it is defined the \mbox{\textit{NeighborhoodManager}}, which manage the neighbourhood of all the nodes.
+This policy is chosen considering the application domain, in fact the behaviour of each node depends on the environment state in its area.\\ 
+MQTT is chosen to implement the \mbox{\textit{NetworkManager}} and enable the communication between Protelis nodes.
+MQTT is chosen because it is a lightweight protocol and enables devices to send the same message to more devices with only one communication.
+This is very important in a large scale system where the nodes are displaced in many places and the connectivity can go down. \\
+This system is composed also from mobile nodes and when one node change position its neighbours can change, as the neighbourhood of other nodes. 
+So the definition of the neighbourhood cannot be done only at configuration time, but it has to performed also after.
+The \mbox{\textit{NeighborhoodManager}} is an autonomous entity defined to manage the neighbourhood of all the nodes.
 It receives the update of the node position, recomputes the neighbourhoods, and communicates their to all the nodes. 
-This entity allows also to modify the composition of the system at runtime, adding or removing entities with all the neighbourhood updated automatically.
+This entity allows also to modify the composition of the system at run-time, adding or removing entities with all the neighbourhood updated automatically.
 
-\section{Protelis program}
-After presenting the design of the Protelis back-end, this section presents the Protelis program for the global behaviour of the system. 
+\subsection{Protelis program}
+After discussing the design of the Protelis back-end, this section introduces the Protelis program for the global behaviour of the system. 
 The program, visible in \autoref{lst:program}, requires only 25 lines of code.
 Methods \mbox{\textit{decreaseTemp}} and \mbox{\textit{increaseTemp}} modify the temperature of the building devices of a delta temperature every half an hour.
 These methods are build on top of the function \mbox{\textit{cyclicFunction}}, which is present in the developer API of the aggregate stack.
@@ -91,17 +89,17 @@ The final part of the program defines the target temperature for each device and
 
 \lstinputlisting[
 	float,
-	language=Protelis1,
+	language=Protelis,
 	caption={Protelis program for the monitoring application},
 	label={lst:program},
 ]{listings/homeHeating_timer.pt}
 
-\section{Simulation in DingNet}
-This section presents the simulation of a possible scenario. 
+\subsection{Simulation in DingNet}
+Here, a simulation of a possible scenario is illustrated. 
 The simulation is conducted over the city of Leuven with the DingNet simulator.
 First, the setup of the simulated scenario is presented; then the simulation results are discussed in a qualitative way based on simulation snapshots.
-
-\subsection{Setup}
+% la valutazione è di tipo qualitativo per il momento, ma che ulteriori valutazioni di tipo quantitativo sono allo studio e materia di futara pubblicazione 
+\subsection*{Setup}
 The configuration of the simulation provides for an environment composed of the following entities:
 \begin{itemize}
     \item 9 of the 11 DingNet network gateways (the others two are outside of the simulation region)
@@ -112,12 +110,13 @@ The configuration of the simulation provides for an environment composed of the 
 All the sensors are configured to send a new measurement every hour, according to the CAQI index specifications for this polluting gas.
 The low number of mobile sensors and building devices is only due to visualisation purposes. 
 
-\subsection{Results}
+\subsection*{Results}
 \autoref{fig:simAC} shows three snapshots taken from a simulation run of five days.
 The transparent layer represents the air quality level, which is obtained applying an inverse distance weighting on sensed values in the range of 1Km. 
 Green colour means ``very low'' level, while red colour means ``high'' level.
 The two motes with a red line are the mobile sensors, while the others are the fixed ones.
 The building devices are represented with a black dot and a text with pattern ``X/Y/Z''.
+X is its current temperature, Y is its desired temperature, and Z 
 % 
 \begin{figure}[h]
     \centering
@@ -132,11 +131,10 @@ The building devices are represented with a black dot and a text with pattern ``
     \label{fig:simAC}
 \end{figure}
 % 
-X is its current temperature, Y is its desired temperature, and Z is its maximum reachable temperature based on pollution level.
+is its maximum reachable temperature based on pollution level.
 The three snapshots show how the pollution changed during the five days of simulation, and how the building maximum reachable temperature is adapted consequently.
 In particular the building in the north of the city has always the desired temperature greater then the maximum reachable. 
 The building in the centre of the city has first the desired temperature greater then the maximum reachable, but after the pollution change it is the opposite and the building reaches its desired temperature.
 Finally, the building in the south has always the desired temperature lower then the maximum reachable.
 
-\paragraph{Concluding.} This chapter has presented a system designed with the aggregate computing paradigm over a LoRaWAN network, and simulated it in the DingNet simulator.
-After all the improvements and extensions on DingNet simulator, this case study has showed how it is possible simulate Protelis applications in this platform. 
+

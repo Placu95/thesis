@@ -1,10 +1,10 @@
-\chapter{Case study: Pollution-aware user navigation}
-\label{chap:case-staudyLoRa}
+\section{Case study: Pollution-aware user navigation}
+\label{sec:case-staudyLoRa}
 
-This chapter presents the case study used as reference scenario during the evolution of the DingNet simulator, and to evaluate the limits of communications from applications to LoRa motes. 
-A demo from this case study was showed during the Day of Science in Flanders to present the LoRaWAN technology receiving a lot of attention.
+% This chapter presents the case study used as reference scenario during the evolution of the DingNet simulator, and to evaluate the limits of communications from applications to LoRa motes. 
+% A demo from this case study was showed during the Day of Science in Flanders to present the LoRaWAN technology receiving a lot of attention.
 
-\section{Case study description}
+% \section{Case study description}
 Leuven is a cycling city where most of the inhabitants and students use daily their bike to move across the city. 
 In this context we want to realise a system able to provide to the user the healthiest route to reach a destination. 
 The route generation will be based on the air quality level, based on the CAQI index~\cite{CAQI}, of the crossed areas to reach the destination. 
@@ -20,7 +20,7 @@ The sensor network can be composed by two types of sensors:
 All the sensors have to be deployed in a LoRaWan network.
 Similarly also the user device, which interacts with the application to require the route, has to use the LoRa technology.
 
-\section{Design of the system}
+\subsection{Design of the system}
 \autoref{fig:caseStudyA} shows the high level architecture of the system, and introduces the main entities. 
 The main entities are the sensors devices, the user devices, and the routing application.
 As requirement both sensors devices and user devices have to be displaced inside the LoRaWAN network and use the LoRa technology to communicate with the routing application.
@@ -38,6 +38,7 @@ Using the DingNet simulator to simulate the LoRaWAN network:
     \label{fig:caseStudyA}
 \end{figure}
 % 
+
 \subsection*{Interaction between application and devices}
 If on one hand the transmissions from the devices (both sensor and user) to the application are in compliance with the maximum packet's length defined by the LoRaWAN standard (1 byte for packets with the sensed value, and 16 bytes for the packet to require the route); on the other hand it is impossible to send the packet from application to the user device with the entire route, so the only way to do it is to split the packet.
 In order to send the entire route to the user device, two approaches are available: 
@@ -47,7 +48,7 @@ In order to send the entire route to the user device, two approaches are availab
 \end{enumerate}
 Considering also the requirement to recompute the route if the environment condition change, the second option is chosen, enabling to recompute the route before send its next part.
 
-\subsection*{Design of the user device}
+\subsection*{User device model}
 % UserMote - consume packet
 The user device has to perform three activity: require the route, send update of its position, and manage the incoming packets.
 If on one hand the last two activity can be performed also from a \textit{Mote}, on the other hand it cannot require the route.
@@ -72,13 +73,12 @@ The values sensed by the sensors are retrieved subscribing the topics where the 
 The route is sent to the user mote publishing the massage with sub-route on its receiving topic.
 The application recomputes the best route only when the user device communicates its new position and if some environment condition is changed from the previous computation.
 
-\section{Simulation in DingNet}
-
-This section presents the simulations of two possible small scale scenarios. 
+\subsection{Simulation in DingNet}
+Here, simulations of two possible small scale scenarios are illustrated. 
 The simulations are conducted over the city of Leuven with the DingNet simulator.
 First, the setup of the two simulated scenarios is presented; then the simulation results discussed in a qualitative way based on simulation snapshots.
 
-\subsection{Setup}
+\subsection*{Setup}
 Both the scenarios present a common configuration and differ only for the starting position of the user.
 The environment is composed of:
 \begin{itemize}
@@ -90,7 +90,7 @@ The environment is composed of:
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
 In the first scenario the user start from the south of the city, which is the most polluted in the simulation configuration; while in the second scenario the user starts from the north of the city.
 
-\subsection{Results}
+\subsection*{Results}
 
 \autoref{fig:sim1} and \autoref{fig:sim2} show snapshots taken from the two simulated scenarios.
 The transparent layer represents the air quality level in that point based on the received sensor value.
@@ -135,7 +135,3 @@ In this case the user best route never changes because the change of the environ
 Although they are simple simulations with few sensors and only one user device, it can be deduced that use LoRa technology also for user devices is possible only in certain scenarios.
 In these scenarios the number of transmissions necessary to transmit all the route is high, so according to LoRaWAN limitations it is possible only for short route.
 Moreover considering a real scenario where the number of user is higher (es. more than one thousand) the network congestion will increase with also the probability of collisions among transmissions, which require re-transmission worsening the situation.
-
-\paragraph{Concluding.} This chapter has presented the case study used as reference for the simulator evolution.
-It has helped to consider the behaviour of all the network facilities and the bi-directional communication schema.
-It has confirmed the validity of LoRaWAN as enabling technology for a sensor network and its limits regarding the communication from application to LoRa devices.
