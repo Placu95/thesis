@@ -145,15 +145,15 @@ Finally, LoRa uses the regional Industrial, Scientific and Medical (ISM) band. T
 % (Class A, B and C)
 The MAC layer regulates the communications between motes and gateways.
 % 
-Uplink communication (mote to gateways) uses an ALOHA-like protocol. Motes start a broadcast communication when they need without checking channel state, but applying a small random delay.
+Uplink communication (mote to gateways) uses an ALOHA-like protocol. Motes start a broadcast communication when they need without checking the channel state, but applying a small random delay.
 % 
-For downlink communication (gateway to mote) to reduce the battery consumption of the motes, and respect latency requirement of different applications, the layer defines three different classes of devices (A, B and C) with different behaviour.
+For downlink communication (gateway to mote), in order to reduce the battery consumption of the motes, and respect latency requirement of different applications, the layer defines three different classes of devices (A, B and C) with different behaviour.
 % 
 Devices of class A define two fixed receiving windows after each uplink communication, with the second one opened only if the mote receives a communication during the first. 
 % 
 This class has the lowest battery consumption with the drawback of the highest latency. 
 % 
-Devices of class B allow to define more receiving windows, but it is necessary to keep motes and server synchronized via synchronized Beacon. 
+Devices of class B allow to define more receiving windows, but it is necessary to keep motes and server synchronised via synchronised Beacons. 
 % 
 This class has lower latency than class A but also higher battery consumption. 
 % 
@@ -176,18 +176,17 @@ An example of LoRa-over-MQTT architecture is ChirpStack\footnote{\href{https://w
     \label{fig:ChirpStack}
 \end{figure}
 
-DingNet\footnote{\href{https://admin.kuleuven.be/icts/english/services/dingnet}{https://admin.kuleuven.be/icts/english/services/dingnet} (Jan 2020)} is a real LoRaWAN network of class A composed of 11 gateways that cover the entire university city of Leuven and adopts a LoRa-over-MQTT architecture. 
+DingNet\footnote{\href{https://admin.kuleuven.be/icts/english/services/dingnet}{https://admin.kuleuven.be/icts/english/services/dingnet} (Jan 2020)} is a real LoRaWAN network of class A composed of 11 gateways that cover the entire city of Leuven and adopts a LoRa-over-MQTT architecture. 
 % 
-DingNet allows adding users' devices and applications to the network for research porpoise.
+DingNet allows adding users' devices and applications to the network for research purposes.
 % 
-Last year was introduced the DingNet Simulator~\cite{inproceedings}.
-It allows simulation of applications in different scenarios before deploying them in the real network reducing costs and time for the deployment.
+The DingNet Simulator~\cite{inproceedings} allows for simulation of applications in different scenarios before deploying them in the real network reducing costs and time for the deployment.
 % 
 It is a time-driven simulator focused on the simulation of LoRa communications between gateways and motes while the remainder of the network is simulated with a higher-level of abstraction. 
 % 
 The simulator allows configuring the environment of the network in terms of gateways, motes, and typology of areas that compose the environment. 
 % 
-Exist different types of areas (like forest, open space, building area) to represent different kinds of areas present in a city. 
+Different terrains are represented in the simulator as different type of area; like forest, open space, and building area. 
 Each area differs for how much decrease the power of a transmission; for example, a building area decreases power more than an open space one.
 % 
 Motes can be stationary, but also mobile with the possibility do define their path.
@@ -198,7 +197,7 @@ The simulator for each transmission computes the time-on-air based on the previo
 % 
 Then it applies an algorithm to decrease the transmission power based on the distance from the source and typology of areas that the transmission is going through to find all the gateway inside the communication range.
 % 
-Every transmission is considered arrived at a gateway when is pass enough time (time-on-air) from the beginning of the transmission. 
+Every transmission is considered arrived at a gateway when enough time (time-on-air) has passed from the beginning of the transmission. 
 Finally, the gateway applies a particular algorithm to check if the transmission is collided with others. If not it publishes the received packet on the MQTT broker for the applications.
 %
 At the end of each simulation is possible to export different information for mote's transmission:
@@ -212,5 +211,5 @@ At the end of each simulation is possible to export different information for mo
 
 Nowadays, the simulator is used mainly to simulate self-adaptive applications in large scenarios to increase the number of transmissions correctly delivered to at least one gateway reducing the energy consumption from the motes.
 
-\paragraph{Concluding remarks.} This chapter has presented first the aggregate computing paradigm, presenting its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it had presented LoRaWAN, which is one of the main LPWAN protocol. 
-Finally it has presented DingNet a LoRaWAN network and its simulator.
+\paragraph{Concluding remarks.} This chapter introduced the aggregate computing paradigm, presenting its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it introduced LoRaWAN, which is one of the main LPWAN protocol. 
+Finally it presented DingNet a LoRaWAN network and its simulator.

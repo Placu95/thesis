@@ -6,11 +6,11 @@ A demo from this case study was showed during the Day of Science in Flanders to 
 
 \section{Case study description}
 Leuven is a cycling city where most of the inhabitants and students use daily their bike to move across the city. 
-In this context we want to realize a system able to provide to the user the healthiest route to reach a destination. 
+In this context we want to realise a system able to provide to the user the healthiest route to reach a destination. 
 The route generation will be based on the air quality level, based on the CAQI index~\cite{CAQI}, of the crossed areas to reach the destination. 
 The user, in order to obtain the route, has to require it to the application deployed in a remote server.
 The system uses data received from the sensor network to create a city map of quality air.
-Then, the application has to define the route to a destination that optimize the trade-off between air quality and length of the route.
+Then, the application has to define the route to a destination that optimise the trade-off between air quality and length of the route.
 The system should be able to recompute the best route if the environment condition change, and communicate it to the user.
 The sensor network can be composed by two types of sensors:
 \begin{itemize}
@@ -90,18 +90,18 @@ The environment is composed of:
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
 In the first scenario the user start from the south of the city, which is the most polluted in the simulation configuration; while in the second scenario the user starts from the north of the city.
 
-\subsection{Result}
+\subsection{Results}
 
 \autoref{fig:sim1} and \autoref{fig:sim2} show snapshots taken from the two simulated scenarios.
 The transparent layer represents the air quality level in that point based on the received sensor value.
 The mote number 4 is the mobile sensor and the red line is its route.
 The user is identified by the cyclist. 
-Its line (route) is of two colors: blue and red.
+Its line (route) is of two colours: blue and red.
 The blue one is the complete route computed by the application, while the red one is the sub-route received by the user until that time. 
 
 \autoref{fig:sim1} shows three snapshots of the first simulated scenario.
-First snapshot shows the initial situation and the first computed route.
-Second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better by the application, combining distance with pollution. 
+The first snapshot shows the initial situation and the first computed route.
+The second snapshot shows how after an environment conditions change, the route is recomputed with a longer one, but considered better by the application, combining distance with pollution. 
 So the user has received a new sub-route of the new best route that starts from its actual position.
 Finally, the last snapshot shows the user arrived to destination.
 % 
