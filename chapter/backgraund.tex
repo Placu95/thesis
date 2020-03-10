@@ -42,9 +42,9 @@ As it is possible to see from the stack in \autoref{fig:ACstack}, the base const
 
 The field calculus is a theoretical model that describes a set of primitives to manipulate the concept of computational field. A computational field is a distributed data structure that maps every networked device to some local value. In field calculus, everything is a field (value, variable, expression, function) and the constructs to build and manipulate it are:
 \begin{itemize}
-    \item \textbf{Functions}, $b(e1,\dots,e_n)$ applies function $b$ to arguments $e1,\dots,e_n$. The output field is obtained by the point-wise evaluation of the operator to the input fields
-    \item \textbf{Stateful computation}, $rep(x \leftarrow v)~\{s1; \dots ; s_n\}$ a local variable $x$ is defined and initialized to value $v$. Then the value is periodically updated with the result of statements $s1; \dots ; s_n$
-    \item \textbf{Interaction}, $nbr(s)$ share the local value of $s$, represented as a field, with its neighbours. The result is a field of fields (the same information shared from neighbours) that is possible to reduce to a simple field using \textit{hood} operators
+    \item \textbf{Functions}, $b(e1,\dots,e_n)$ applies function $b$ to arguments $e1,\dots,e_n$. The output field is obtained by the point-wise evaluation of the operator to the input fields;
+    \item \textbf{Stateful computation}, $rep(x \leftarrow v)~\{s1; \dots ; s_n\}$ a local variable $x$ is defined and initialized to value $v$. Then the value is periodically updated with the result of statements $s1; \dots ; s_n$;
+    \item \textbf{Interaction}, $nbr(s)$ share the local value of $s$, represented as a field, with its neighbours. The result is a field of fields (the same information shared from neighbours) that is possible to reduce to a simple field using \textit{hood} operators;
     \item \textbf{Domain restriction}, $if(e)~\{s1; \dots ; s_n\}~else~\{s'_1; \dots ; s'_n\}$ split the field in two sub-field according to the evaluation of $e$. Where $e$ is true is applied the statement $s1; \dots ; s_n$, while where $e$ is false is applied the statement $s'_1; \dots ; s'_n$.
 \end{itemize}
 
@@ -58,10 +58,10 @@ These programs are self-stabilizing and it is possible to prove that programs wr
 These building blocks compose the central layer of the aggregate programming stack, \autoref{fig:ACstack}, and the main ones are:
 
 \begin{itemize}
-    \item $G(source, init, metric, accumulate) \rightarrow$ function to spread information across space. First, build a field of the shortest path that starts from the $source$ with the chosen $metric$. Then spread the information across the field starting from the $init$ value and modifying it at each step with the $accumulate$ function
-    \item $C(potential, reduce, local, null) \rightarrow$ function to accumulates $local$ value along the $potential$ field until the source. The final value is obtained applying the $reduce$ function to the $local$ value of the crossed nodes. If there is nothing to accumulate default value $null$ is returned
-    \item $T(init, zero, decay)  \rightarrow$ function to evolve the state for a specified period. The period starts from $init$ and decreases to $zero$ with a $decay$ rate
-    \item $S(grain, metric)  \rightarrow$ function to split the network into partitions of nodes. This function leverages the $metric$ function to define partitions of a size proportional to $grain$ and elects a leader for each one.
+    \item $G(source, init, metric, accumulate)$: function to spread information across space. First, build a field of the shortest path that starts from the $source$ with the chosen $metric$. Then spread the information across the field starting from the $init$ value and modifying it at each step with the $accumulate$ function;
+    \item $C(potential, reduce, local, null)$: function to accumulates $local$ value along the $potential$ field until the source. The final value is obtained applying the $reduce$ function to the $local$ value of the crossed nodes. If there is nothing to accumulate default value $null$ is returned;
+    \item $T(init, zero, decay)$: function to evolve the state for a specified period. The period starts from $init$ and decreases to $zero$ with a $decay$ rate;
+    \item $S(grain, metric)$: function to split the network into partitions of nodes. This function leverages the $metric$ function to define partitions of a size proportional to $grain$ and elects a leader for each one.
 \end{itemize}
 
 This set of four functions with the domain restriction operator is able to provide most of the commonly used coordination patterns for distributed systems. 
@@ -202,10 +202,10 @@ Finally, the gateway applies a particular algorithm to check if the transmission
 %
 At the end of each simulation is possible to export different information for mote's transmission:
 \begin{itemize}
-    \item received power from the gateways (dBm)
-    \item time on air (ms)
-    \item used power for the transmission (dBm)
-    \item used energy for the transmission (mJoule)
+    \item received power from the gateways (dBm);
+    \item time on air (ms);
+    \item used power for the transmission (dBm);
+    \item used energy for the transmission (mJoule);
     \item collision with others transmissions (true/false).
 \end{itemize}
 

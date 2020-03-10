@@ -7,8 +7,8 @@ This chapter explains the contribution of this thesis. \Cref{sec:contributionDin
 This section exposes all the improvements and extensions applied to the DingNet simulator to achieve an extendible and configurable simulator, which simulates the entire LoRa-over-MQTT network. 
 Previous work on the simulator were focused mainly on three areas:
 \begin{enumerate}
-    \item \textbf{LoRaWAN communications}: simulation of bi-directional communication between LoRa motes and LoRa gateways
-    \item \textbf{GUI}: provide a good user interface that simplifies the configuration of simulations and allows the user to see the simulations results
+    \item \textbf{LoRaWAN communications}: simulation of bi-directional communication between LoRa motes and LoRa gateways;
+    \item \textbf{GUI}: provide a good user interface that simplifies the configuration of simulations and allows the user to see the simulations results;
     \item \textbf{Self-adaptive applications}: evaluation of algorithms to reduce the energy consumption for LoRa motes communications, but ensuring that each transmission is received at least from one gateway.
 \end{enumerate}
 The following part of the section presents the contribution to the DingNet simulator (part of this work has been done in collaboration with Federico Quin, a PhD student at KU Leuven).
@@ -29,7 +29,7 @@ The functional requirements are the following:
     \item \textbf{Managing incoming message mote-side:} the motes entities are able to receive packets from the network-server for network administration purposes, and from the applications. So, the platform should allow to manage the incoming packets mote-side, applying actions with side effect to the mote or to the environment in accord with the packet payload;
     \item \textbf{Application layer:} it is the layer that includes the interaction between the gateways and the applications, and the involved entities. 
     This platform want to simulate LoRaWAN networks with LoRa-over-MQTT architecture, so the interactions between gateways and application are intermediated by the network-server and they are based on MQTT. 
-    This layer can be composed by several services (for example the geolocation one), but the only mandatory is the network-server.
+    This layer can be composed by several services (for example the geolocation one), but the only mandatory is the network-server;
     \item \textbf{Time-frame simulations:} the platform has to allow the user to perform simulation with a predetermined duration even for more than a day. It is useful to verify how the system reacts in different scenarios and conditions that can happen in large time-frames; 
     % It is also useful to simulate the system behaviour   
     \item \textbf{Configurable sensors:} the behaviour of the simulated applications can depend from the sensed data received from the motes. So, it is important provide configurable sensors, that guarantee to the user to define the values to produce in each zone of the simulated region in every instant.
@@ -39,9 +39,12 @@ The functional requirements are the following:
 
 \subsection*{Non-functional requirements}
 
-build tool
-CI e CD
-code quality
+The identified non-functional requirement concerns with the \textbf{project maintainability}. 
+In this context it want apply techniques to automatise the project life cycle, and mainly the dependency management, the project build, the execution of all the tests in fresh environments, enforce adoption of a common style, and optionally also the deployment of the project.
+Automatise all these activities is useful to increase the productivity and maintain a good quality project over time.
+
+% build tool
+% CI e CD
 
 \subsection{Problem analysis and Design}
 
@@ -98,7 +101,7 @@ So, in order to obtain the desired simulation platform, and provide realistic si
 MQTT has to be used as communication technology for both the bi-directional communications gateways to network-server and network-server to applications, but there are no requirements that obligate to use the same broker for both the interactions. 
 During the problem analysis phase the following requirements were identified for the MQTT client:
 \begin{itemize}
-    \item[Req1.] allow simulations with different client abstractions, optimisations, and realise a simulator technology independent for MQTT client's implementation 
+    \item[Req1.] allow simulations with different client abstractions, optimisations, and realise a simulator technology independent for MQTT client's implementation;
     \item[Req2.] avoid MQTT messages conversions to domain specific objects at each topic \mbox{subscription}.
 \end{itemize}
 In order to fulfil Req1 it is necessary to allow to switch client implementation in a simple and fast way (for example from a mock implementation to a real one).
@@ -125,7 +128,7 @@ The network server is the entity appointed to regulate the communication between
 Different providers propose different solutions. 
 The solution designed for the simulator is composed of an autonomous simulator entity that performs two tasks:
 \begin{enumerate}
-    \item filtering of duplicated messages in communication from gateways to applications
+    \item filtering of duplicated messages in communication from gateways to applications;
     \item selections of the best gateway to deliver an application's message to a LoRa mote. 
     Default strategy to choose the gateway selects the gateway that has received the last transmission from the LoRa mote with more transmission power, but it is possible to change it defining different strategies. 
 \end{enumerate}
@@ -164,7 +167,7 @@ It does not enable only multi-days simulation, but also it simplifies the time m
     \label{fig:time}
 \end{figure}
 
-\subsection{Configurable sensors}
+\subsection*{Configurable sensors}
 DingNet already defines its own concept of sensor defined by the interface \mbox{\textit{SensorDataGenerator}}, and some its implementations.
 The problem is that miss a support to configure with low effort the values that the sensors has to produce, and that it allows to add new type of sensors defining only its possible values.
 In order to solve the problem, it wants to define an extendible architecture starting from the sensor interface already defined, which grants to configure the values to produce.
@@ -177,8 +180,8 @@ Finally, when a mote requires a new value to the sensor, it produces the value c
 The result is that each sensor inside the same cell produces the same value at the same time. 
 The architecture of this sensor is presented in \autoref{fig:rangedSensor}, and:
 \begin{itemize}
-    \item \textbf{Cell} represent the cells that compose the configurable matrix
-    \item \textbf{RangeValue} is the range of validity for the value to produce
+    \item \textbf{Cell} represent the cells that compose the configurable matrix;
+    \item \textbf{RangeValue} is the range of validity for the value to produce;
     \item \textbf{RangeDataGenerator} is the abstract class that loads the configuration file of the sensor, generates the interpolating function and produces values for LoRa motes. It requires only to define the type of the two interfaces \textit{Cell} and \textit{RangeValue}.
 \end{itemize}
 % 
@@ -192,21 +195,13 @@ The architecture of this sensor is presented in \autoref{fig:rangedSensor}, and:
 In order to define new configurable sensors it is require only to implement the \mbox{\textit{RangeDataGenerator}} abstract class specifying the type of \mbox{\textit{Cell}} and \mbox{\textit{RangeValue}}.
 The actual file format for the sensor configuration file is \textit{toml}\footnote{\href{https://github.com/toml-lang/toml}{https://github.com/toml-lang/toml (Feb 2020)}}, but thanks to the \textit{konf}\footnote{\href{https://github.com/uchuhimo/konf}{https://github.com/uchuhimo/konf (Feb 2020)}} library (used to parse the file) it will be possible to change the file format with low effort.
 
-\iffalse
-\subsection{Build tool and Continuous Integration}
-After a first study of the simulator's project, it has been noticed the absence of a build tool to manage project's dependency, build, and execution, so the first action has been to add it. 
-In a first moment has been chosen \textit{Apache Maven} as build tool, but then \textit{Gradle} has been preferred to it for several reasons\footnote{ \href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main reasons that guided this change are: performance, highest readability of project's configuration file due to a less verbose syntax, and better script support (with the possibility to write them in kotlin with \textit{Gradle Kotlin DSL}). 
-
-In the context of project management another important aspect is the continuous integration.
-It is useful to build and test the project in an automatic way in different and fresh environments. 
-As continuous integration service to test the project in all the main operative systems (linux, windows, and osx) and with different java versions (11 and 12) has been chosen \textit{Travis-CI}\footnote{\href{https://travis-ci.com/}{https://travis-ci.com (Feb 2020)}}.
-Travis-CI has been chosen because it is free and well integrated with \textit{GitHub} that host the project.
-
-\subsection{Code improvement}
-Before start to evolve the simulator it was necessary carry out a phase to improve the code already present. 
-This phase has the aim to improve the readability of the code and apply the KISS principle to prevent possible bug.
-The main actions have been: use of base type and base interface instead class type, reduce code duplication reorganizing code or moving it inside method, remove magic number replacing them with constants, avoid useless functions, define unit of measure of physical concepts, apply tools for style checking to guarantee code readability over time.
-\fi
+\subsection*{Project maintainability}
+In order to automatise the dependency management, and the project build was evaluated two build tool: \textit{Apache Maven} and \textit{Gradle}.
+\textit{Gradle} is preferred to \textit{Apache Maven} for several reasons\footnote{\href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main ones are: performance, highest readability of project's configuration file due to a less verbose syntax, and better script support (with the possibility to write them in kotlin with \textit{Gradle Kotlin DSL}).
+Instead, \textit{Travis-CI}\footnote{\href{https://travis-ci.com/}{https://travis-ci.com (Feb 2020)}} is chosen as continuous integration service to run a new build of the project and execute all its test in fresh environments after every change.
+Travis-CI is chosen because it is free and well integrated with \textit{GitHub} that host the project.
+It is configured to test the project in all the main operative systems (linux, windows, and osx) and with different java versions (11 and 12).
+Finally, \textit{Checkstyle}\footnote{\href{https://checkstyle.sourceforge.io/}{https://checkstyle.sourceforge.io/ (Feb 2020)}} is adopted to enforce the use of a common style in the entire project, and its execution is planned every time Travis-CI performs all the class of tests. 
 
 \section{Aggregate programming over a LoRa-over-MQTT network}
 \label{sec:contributionACOverDingNet}
@@ -240,8 +235,8 @@ That requirement represents a specific capability of this type of nodes and Prot
 \mbox{\textit{LoRaNodeExecutionContext}} is the basic execution context for a LoRa node that:
 % 
 \begin{itemize}
-    \item adds support for MQTT communication, satisfying the identified requirement
-    \item encapsulates the subscription to the MQTT topic to receive the sensed values from the respective LoRa mote
+    \item adds support for MQTT communication, satisfying the identified requirement;
+    \item encapsulates the subscription to the MQTT topic to receive the sensed values from the respective LoRa mote;
     \item manages the received packet adding the sensed values to the knowledge-based of the node, or modifying its position if the value belongs to the GPS sensor.
 \end{itemize}
 % 

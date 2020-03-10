@@ -37,8 +37,8 @@ The sensor devices are LoRa motes, so they are mapped in \mbox{\textit{Mote}} in
 The building devices are not LoRa motes, so they do not require to be mapped in \mbox{\textit{ProtelisLoRaNode}} and they can be generic Protelis nodes.
 Anyway it is decided to map them in \mbox{\textit{BuildingNode}}, which extends \mbox{\textit{ProtelisLoRaNode}}, \autoref{fig:caseBmodel_a}. This because:
 \begin{itemize}
-    \item the building node has not a physical mote then its topic will never receive a MQTT message; so it has not any overhead
-    \item all the types of nodes have a base \mbox{\textit{ExecutionContext}} where introduce functions domain specific
+    \item the building node has not a physical mote then its topic will never receive a MQTT message, so it has not any overhead;
+    \item all the types of nodes have a base \mbox{\textit{ExecutionContext}} where introduce functions domain specific;
     \item if in the future they will have a physical mote, it will not be necessary to change the system architecture.
 \end{itemize}
 \autoref{fig:caseBmodel_b} completes the model of the entities with their \mbox{\textit{ExecutionContext}}.
@@ -64,8 +64,8 @@ Anyway it is decided to map them in \mbox{\textit{BuildingNode}}, which extends 
 \subsection*{Interaction between Protelis nodes}
 In order to complete the Protelis backend is required to implement the communication layer. It has to:
 \begin{enumerate}
-    \item define the neighbourhood policy to determine the neighbours of each node.
-    \item design and implement the communication between the Protelis nodes
+    \item define the neighbourhood policy to determine the neighbours of each node;
+    \item design and implement the communication between the Protelis nodes.
 \end{enumerate}
 As neighbourhood policy a distance based one is chosen. 
 This policy is chosen considering the application domain, in fact the behaviour of each node depends on the environment state in its area.\\ 
@@ -102,9 +102,9 @@ First, the setup of the simulated scenario is presented; then the simulation res
 \subsection*{Setup}
 The configuration of the simulation provides for an environment composed of the following entities:
 \begin{itemize}
-    \item 9 of the 11 DingNet network gateways (the others two are outside of the simulation region)
-    \item 8 fixed sensors equipped with the PM10 sensor
-    \item 2 mobile sensors equipped with PM10 and GPS sensors
+    \item 9 of the 11 DingNet network gateways (the others two are outside of the simulation region);
+    \item 8 fixed sensors equipped with the PM10 sensor;
+    \item 2 mobile sensors equipped with PM10 and GPS sensors;
     \item 3 building devices displaced in three different areas of the city.
 \end{itemize}
 All the sensors are configured to send a new measurement every hour, according to the CAQI index specifications for this polluting gas.

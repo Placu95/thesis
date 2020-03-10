@@ -14,8 +14,8 @@ Then, the application has to define the route to a destination that optimise the
 The system should be able to recompute the best route if the environment condition change, and communicate it to the user.
 The sensor network can be composed by two types of sensors:
 \begin{itemize}
-    \item \textbf{Fixed}: positioned along the roads and at intersections
-    \item \textbf{Mobile}: placed on public transport or bicycles
+    \item \textbf{Fixed}: positioned along the roads and at intersections;
+    \item \textbf{Mobile}: placed on public transport or bicycles.
 \end{itemize}
 All the sensors have to be deployed in a LoRaWan network.
 Similarly also the user device, which interacts with the application to require the route, has to use the LoRa technology.
@@ -26,8 +26,8 @@ The main entities are the sensors devices, the user devices, and the routing app
 As requirement both sensors devices and user devices have to be displaced inside the LoRaWAN network and use the LoRa technology to communicate with the routing application.
 Using the DingNet simulator to simulate the LoRaWAN network:
 \begin{itemize}
-    \item the routing application is mapped in a generic application deployed in the application server that communicates with the LoRaWAN network via MQTT
-    \item the sensor devices, which have to send only packet with the sensed value, can be mapped in the \textit{Mote} simulator entity
+    \item the routing application is mapped in a generic application deployed in the application server that communicates with the LoRaWAN network via MQTT;
+    \item the sensor devices, which have to send only packet with the sensed value, can be mapped in the \textit{Mote} simulator entity;
     \item the user devices are special devices, because they do not send only packets with the sensed value. They have also to require the route for a destination and be able to manage the received packets with the route. Actually there is not simulator entity with this specific abilities, so it will be necessary to define it.
 \end{itemize}
 % 
@@ -43,7 +43,7 @@ Using the DingNet simulator to simulate the LoRaWAN network:
 If on the one hand the transmissions from the devices (both sensor and user) to the application are in compliance with the maximum packet's length defined by the LoRaWAN standard (1 byte for packets with the sensed value, and 16 bytes for the packet to require the route); on the other hand it is impossible to send the packet from application to the user device with the entire route, so the only way to do it is to split the packet.
 In order to send the entire route to the user device, two approaches are available: 
 \begin{enumerate}
-    \item define a specific interaction protocol to send all the packets with the entire route to the user device immediately after its computation
+    \item define a specific interaction protocol to send all the packets with the entire route to the user device immediately after its computation;
     \item send a packet with part of the route only when the user has finished the previous part of the route.
 \end{enumerate}
 Considering also the requirement to recompute the route if the environment condition change, the second option is chosen, enabling to recompute the route before send its next part.
@@ -82,9 +82,9 @@ First, the setup of the two simulated scenarios is presented; then the simulatio
 Both the scenarios present a common configuration and differ only for the starting position of the user.
 The environment is composed of:
 \begin{itemize}
-    \item 2 gateways
-    \item 4 fixed sensors equipped with a set of sensors and send directly the final CAQI index value.
-    \item one mobile sensor that follows a path like a public transport. It assume the same behaviour of a fixed sensor, but is equipped also of a GPS sensors.
+    \item 2 gateways;
+    \item 4 fixed sensors equipped with a set of sensors and send directly the final CAQI index value;
+    \item one mobile sensor that follows a path like a public transport. It assume the same behaviour of a fixed sensor, but is equipped also of a GPS sensors;
     \item user that requires a route to a destination.
 \end{itemize} 
 All the types of LoRa devices are configured in a way to try to reduce collision between transmissions.
