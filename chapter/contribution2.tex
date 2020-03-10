@@ -1,6 +1,6 @@
 \chapter{Contribution}
 \label{chap:contribution}
-This chapter explains the contribution of this thesis. \Cref{sec:contributionDingNet} starts presenting all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} presents  the work done to support the execution of aggregate computing programs over the DingNet simulator, and in particular Protelis programs. 
+This chapter explains the contribution of this thesis. \Cref{sec:contributionDingNet} starts exposing all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} illustrates  the work done to support the execution of aggregate computing programs over the DingNet simulator, and in particular Protelis programs. 
 
 \section{Extension and evolution to DingNet}
 \label{sec:contributionDingNet}
@@ -11,7 +11,7 @@ Previous work on the simulator were focused mainly on three areas:
     \item \textbf{GUI}: provide a good user interface that simplifies the configuration of simulations and allows the user to see the simulations results;
     \item \textbf{Self-adaptive applications}: evaluation of algorithms to reduce the energy consumption for LoRa motes communications, but ensuring that each transmission is received at least from one gateway.
 \end{enumerate}
-The following part of the section presents the contribution to the DingNet simulator (part of this work has been done in collaboration with Federico Quin, a PhD student at KU Leuven).
+The following part of the section discusses the contribution to the DingNet simulator (part of this work has been done in collaboration with Federico Quin, a PhD student at KU Leuven).
 \clearpage
 \subsection{Platform requirements}
 
@@ -79,7 +79,7 @@ Finally, it also allows to evaluate the network behaviour with several variants 
 \subsection*{Managing of incoming message mote-side}
 
 The simulator partially supports the managing of incoming message mote-side: it is designed only the structure to manage the \textit{MAC Commands} (special commands exchange between network server and motes for network administration) motes side.
-In order to complete the managing of incoming messages to a LoRa mote, allowing to use all the information presents in the payload, the architecture illustrated in \autoref{fig:consume} is designed.
+In order to complete the managing of incoming messages to a LoRa mote, allowing to use all the information contained in the payload, the architecture illustrated in \autoref{fig:consume} is designed.
 \mbox{\textit{ReceivedPacketStrategy}} defines the strategy to use to store all the incoming packets and manage the pending queue of packets to consume.
 \mbox{\textit{ConsumePacketStrategy}} defines how use the information in the payload to produce a side-effect on the LoRa mote or on the environment. 
 Every mote can have a list of \mbox{\textit{ConsumePacketStrategy}}, which are performed in an ordered way with strategies that can use or ignore the packet.
@@ -178,7 +178,7 @@ Each cell's configuration defines the starting time of validity and the range of
 Then starting from this configuration is produced a tricubic spline interpolation function where the three variable are: the two coordinates of the matrix and the time; while the result is the corresponding sensor value.
 Finally, when a mote requires a new value to the sensor, it produces the value considering the mote position and the simulation time.
 The result is that each sensor inside the same cell produces the same value at the same time. 
-The architecture of this sensor is presented in \autoref{fig:rangedSensor}, and:
+The architecture of this sensor is showed in \autoref{fig:rangedSensor}, and:
 \begin{itemize}
     \item \textbf{Cell} represent the cells that compose the configurable matrix;
     \item \textbf{RangeValue} is the range of validity for the value to produce;
@@ -213,7 +213,7 @@ So, following the aggregate vision it is natural to map each LoRa mote in a node
 \\On the one hand, LoRa nodes can be considered as generic nodes and they do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours. 
 But on the other hand, they have to support communication via MQTT to enable bidirectional communication with the respective physical counterparts.
 Finally, it is necessary to analyse if all the network entities, or only some of them, can host the aggregate nodes.
-In \cite{CCNCPS2018} the authors present a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluations of the proposed solution, they identify some issues due to the physical limitations of the communication technology. 
+In \cite{CCNCPS2018} the authors propose a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluations of the proposed solution, they identify some issues due to the physical limitations of the communication technology. 
 These issues do not allow to execute aggregate computing program directly on the LoRa motes, but they are not valid for the others network entities and there is any paper that identifies others possible issues.
 Even if all the LoRaWAN network entities excluded the motes can host the aggregate node (LoRa nodes or others types of nodes), it is important to specify a limitation for the LoRa nodes. 
 The LoRa nodes can interact with the respective LoRa mote only following the interaction schema defined from the LoRa-over-MQTT networks. 
@@ -241,7 +241,7 @@ That requirement represents a specific capability of this type of nodes and Prot
 \end{itemize}
 % 
 The introduced model enables the design of Protelis application composed of LoRa nodes, but also of not LoRa nodes.
-Protelis applications with the model presented in \autoref{fig:appP} are not only valid for the DingNet network but for all the LoRa-over-MQTT networks that provide LoRa mote's data on a MQTT broker.
+Protelis applications with the model illustrated in \autoref{fig:appP} are not only valid for the DingNet network but for all the LoRa-over-MQTT networks that provide LoRa mote's data on a MQTT broker.
 % 
 \begin{figure}[H]
     \centering

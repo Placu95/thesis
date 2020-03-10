@@ -1,7 +1,7 @@
 \section{Case study: Monitoring and control of air quality}
 
 \label{sec:case-staudyAC}
-% This chapter presents a case study that joins the aggregate computing paradigm and a LoRaWAN network. Finally, it shows a simulation of the case study in the DingNet simulator.
+
 
 Nowadays air pollution is a very common problem of cities of all the world.
 Two of the main strategies used to reduce the emission of polluting gas are traffic bans in strategic city's areas, and maximum temperature allowed in public and private building heating.
@@ -82,7 +82,7 @@ This entity allows also to modify the composition of the system at run-time, add
 After discussing the design of the Protelis back-end, this section introduces the Protelis program for the global behaviour of the system. 
 The program, visible in \autoref{lst:program}, requires only 25 lines of code.
 Methods \mbox{\textit{decreaseTemp}} and \mbox{\textit{increaseTemp}} modify the temperature of the building devices of a delta temperature every half an hour.
-These methods are build on top of the function \mbox{\textit{cyclicFunction}}, which is present in the developer API of the aggregate stack.
+These methods are build on top of the function \mbox{\textit{cyclicFunction}}, which is contained in the developer API of the aggregate stack.
 Lines 16 - 23 first create a computational field of sensed values and distances from the respective sensor. 
 Then they manipulate it defining a field of maximum temperature allowed for each device based on CAQI index.
 The final part of the program defines the target temperature for each device and selects the correct method to achieve it. 
