@@ -40,7 +40,7 @@ Using the DingNet simulator to simulate the LoRaWAN network:
 % 
 
 \subsection*{Interaction between application and devices}
-If on one hand the transmissions from the devices (both sensor and user) to the application are in compliance with the maximum packet's length defined by the LoRaWAN standard (1 byte for packets with the sensed value, and 16 bytes for the packet to require the route); on the other hand it is impossible to send the packet from application to the user device with the entire route, so the only way to do it is to split the packet.
+If on the one hand the transmissions from the devices (both sensor and user) to the application are in compliance with the maximum packet's length defined by the LoRaWAN standard (1 byte for packets with the sensed value, and 16 bytes for the packet to require the route); on the other hand it is impossible to send the packet from application to the user device with the entire route, so the only way to do it is to split the packet.
 In order to send the entire route to the user device, two approaches are available: 
 \begin{enumerate}
     \item define a specific interaction protocol to send all the packets with the entire route to the user device immediately after its computation
@@ -51,7 +51,7 @@ Considering also the requirement to recompute the route if the environment condi
 \subsection*{User device model}
 % UserMote - consume packet
 The user device has to perform three activity: require the route, send update of its position, and manage the incoming packets.
-If on one hand the last two activity can be performed also from a \textit{Mote}, on the other hand it cannot require the route.
+If on the one hand the last two activity can be performed also from a \textit{Mote}, on the other hand it cannot require the route.
 For this reason in \autoref{fig:userMote} a new entity simulator is introduced, the \textit{UserMote}. 
 It extends the \textit{Mote} adding the logic to require the route when needed sending a packet with starting and destination positions.
 Then to manage incoming packets are chosen \textit{MaintainLastPacket} as strategy to store them until that they are consumed, and \textit{ReplacePath} as only strategy to consume them.
@@ -112,7 +112,7 @@ Finally, the last snapshot shows the user arrived to destination.
          \includegraphics[scale=0.42]{figures/sim1snap2.png} &
          \includegraphics[scale=0.42]{figures/sim1snap3.png} 
     \end{tabular}
-    \caption[Three snapshots of a simulation run with changing of the route]{Three snapshots of a simulation run with changing of the route dues to the change of the environment conditions.}
+    \caption[Snapshots of a simulation run of the first scenario (case study 1)]{Three snapshots of a simulation run with changing of the route dues to the change of the environment conditions.}
     \label{fig:sim1}
 \end{figure}
 % 
@@ -127,7 +127,7 @@ In this case the user best route never changes because the change of the environ
          \includegraphics[scale=0.42]{figures/sim2snap2.png} &
          \includegraphics[scale=0.42]{figures/sim2snap3.png} 
     \end{tabular}
-    \caption[Three snapshots of a simulation run without changing of the route]{Three snapshots of a simulation run without changing of the route despite the change of the environmental conditions.}
+    \caption[Snapshots of a simulation run of the second scenario (case study 1)]{Three snapshots of a simulation run without changing of the route despite the change of the environmental conditions.}
     \label{fig:sim2}
 \end{figure}
 % 

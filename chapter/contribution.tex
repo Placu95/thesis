@@ -1,3 +1,14 @@
+% prendi il e comincia a dire, il tool parte da questo insieme di funzionalità
+% 1) Req. e stato corrente (funzionalità e limitazioni)
+% build tool req non funzionali
+% ----------
+% riassumere tutti i contributi all'inizio, reificando una sezione in cui dici (
+
+% Fai:
+% Requisiti con le cose che ti servono
+% Analisi del problema (analizzare i requisiti per dire se sono soddifatti o meno o in parte)
+% Design e implementazione
+
 \chapter{Contribution}
 \label{chap:contribution}
 This chapter explains the contribution of this thesis. \Cref{sec:contributionDingNet} starts presenting all the work done to extend and evolve the DingNet simulator; \Cref{sec:contributionACOverDingNet} presents  the work done to support the execution of aggregate computing programs over the DingNet simulator, and in particular Protelis programs. 
@@ -173,13 +184,13 @@ The actual file format for the sensor configuration file is \textit{toml}\footno
 
 \section{Aggregate programming over a LoRa-over-MQTT network}
 \label{sec:contributionACOverDingNet}
-This section presents the integration between the aggregate computing paradigm and a LoRa-over-MQTT network like DingNet; enabling the simulation of aggregate applications on this platform.
-Firstly, to join these two concepts is necessary to define how map the networks entities in an aggregate computing system, and secondly identifies potentially additional requirements or limitations for these entities.
+This section discusses the integration between the aggregate computing paradigm and a LoRa-over-MQTT network like DingNet; enabling the simulation of aggregate applications on this platform.
+In order to join these two concepts, first is necessary to define how map the networks entities in an aggregate computing system, and second identifies potentially additional requirements or limitations for these entities.
 In the aggregate computing viewpoint, a system is composed of a set of distributed heterogeneous computational entities, called nodes. Nodes execute the same global program and communicate with a subset of them defined by a neighbourhood policy. 
 While, in a LoRaWAN network the main entities are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
-So following the aggregate vision is natural mapping each LoRa mote in a node that represents its digital twin (from now on called LoRa node) inside the aggregate system.
-\\On one hand, LoRa nodes can be considered as generic nodes and they do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours. 
-But at the other hand, they have to support communication via MQTT to enable bidirectional communication with the respective physical counterparts.
+So, following the aggregate vision it is natural to map each LoRa mote in a node that represents its digital twin (from now on called LoRa node) inside the aggregate system.
+\\On the one hand, LoRa nodes can be considered as generic nodes and they do not require any specific neighbourhood's policy, or the use of particular communication technology to interact with their neighbours. 
+But on the other hand, they have to support communication via MQTT to enable bidirectional communication with the respective physical counterparts.
 Finally, it is necessary to analyse if all the network entities, or only some of them, can host the aggregate nodes.
 In \cite{CCNCPS2018} the authors present a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluations of the proposed solution, they identify some issues due to the physical limitations of the communication technology. 
 These issues do not allow to execute aggregate computing program directly on the LoRa motes, but they are not valid for the others network entities and there is any paper that identifies others possible issues.
@@ -191,9 +202,6 @@ For example, if a LoRa node is hosted by a LoRa gateway, that receives directly 
 \label{sec:PoverD}
 % The following subsection presents the software architecture designed to support the LoRa nodes inside an aggregate computing system defined in \textit{Protelis}.
 The only things to do to enable the develop of Protelis applications over the DingNet network is to satisfy the requirement previously identified.
-\iffalse
-The only requirement identified to support LoRa nodes inside an aggregate computing system is that they have to support MQTT communication. 
-\fi
 That requirement represents a specific capability of this type of nodes and Protelis defines a single place appointed to host it, the \mbox{\textit{ExecutionContext}}.
 \autoref{fig:execContext} shows the model of the \mbox{\textit{ExecutionContext}} designed for the LoRa nodes. 
 \begin{figure}[H]
@@ -202,7 +210,7 @@ That requirement represents a specific capability of this type of nodes and Prot
     \caption{Model of \textit{ExecutionContext} for LoRa nodes}
     \label{fig:execContext}
 \end{figure}
-\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information. So \mbox{\textit{PositionedExecutionContext}} is defined, which extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
+\noindent For devices spatially embedded and mainly used to transmit sensor values, their position is a relevant information. So, \mbox{\textit{PositionedExecutionContext}} is defined, which extends \mbox{\textit{AbstractExecutionContext}} (provided by Protelis) implementing the two interfaces that define functions to obtain spatial information of the device.
 \mbox{\textit{LoRaNodeExecutionContext}} is the basic execution context for a LoRa node that:
 % 
 \begin{itemize}
@@ -211,7 +219,7 @@ That requirement represents a specific capability of this type of nodes and Prot
     \item manages the received packet adding the sensed values to the knowledge-based of the node, or modifying its position if the value belongs to the GPS sensor.
 \end{itemize}
 % 
-The presented model enables the design of Protelis application composed of LoRa nodes, but also of not LoRa nodes.
+The introduced model enables the design of Protelis application composed of LoRa nodes, but also of not LoRa nodes.
 Protelis applications with the model presented in \autoref{fig:appP} are not only valid for the DingNet network but for all the LoRa-over-MQTT networks that provide LoRa mote's data on a MQTT broker.
 % 
 \begin{figure}[H]
@@ -221,8 +229,8 @@ Protelis applications with the model presented in \autoref{fig:appP} are not onl
     \label{fig:appP}
 \end{figure}
 % 
-\noindent To execute Protelis applications on the top of DingNet simulator, enabling the simulation of Protelis applications composed of LoRa nodes, is necessary one last small operation: unify the concept of time. 
+\noindent In order to execute Protelis applications on the top of DingNet simulator, enabling the simulation of Protelis applications composed of LoRa nodes, is necessary one last small operation: unify the concept of time. 
 This operation is necessary because the behaviour of every Protelis node depends also from the time in which their execution is scheduled, and the LoRa packets are received.
 To do this it is sufficient wrapping the \mbox{\textit{LoRaNodeExecutionContext}} using the simulator time concept.
 
-\paragraph{Concluding.} This chapter has presented the main works done during this thesis. First it has presented the improvements and evolution of the DingNet simulator model. Then it has presented the support to simulate Protelis application inside the DingNet simulator. 
+\paragraph{Concluding.} This chapter has presented the main works done during this thesis. First it has presented the improvements and evolution of the DingNet simulator model. Then it has presented the support to simulate Protelis application inside the DingNet simulator. \todo{TODO}

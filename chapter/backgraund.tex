@@ -51,11 +51,11 @@ The field calculus is a theoretical model that describes a set of primitives to 
 The behaviour of aggregate systems can be expressed as a functional composition of operators that manipulate (evolve, combine, restrict) computational fields~\cite{type-sound}.
 
 \subsection{Building blocks operators}
-Basic field calculus constructors are low-level operators which do not guarantee to develop self-stabilizing programs. \todo{cite}
+Basic field calculus constructors are low-level operators which do not guarantee to develop self-stabilizing programs as proved in~\cite{DBLP:journals/corr/abs-1711-08297}.
 In complex system, self-stabilizing property guarantees that after each transitory phase, the system returns to a stationary state (if exists), where it is possible to predict its behaviour. 
-\cite{buildingBlock} introduces a set of building block that are programs write with low-level operators.
+\cite{buildingBlock} introduces a set of building block that are programs write with the low-level operators.
 These programs are self-stabilizing and it is possible to prove that programs write combining only these functions will be self-stabilizing.
-This building block compose the central layer of the aggregate programming stack, \autoref{fig:ACstack}, and the principal ones are:
+These building blocks compose the central layer of the aggregate programming stack, \autoref{fig:ACstack}, and the main ones are:
 
 \begin{itemize}
     \item $G(source, init, metric, accumulate) \rightarrow$ function to spread information across space. First, build a field of the shortest path that starts from the $source$ with the chosen $metric$. Then spread the information across the field starting from the $init$ value and modifying it at each step with the $accumulate$ function
@@ -76,13 +76,13 @@ Protelis adopts a C- or Java-like syntax to reduce learning curve, but it is a p
 % 
 Protelis aims to be a language that allows to use the principal of the aggregate computing in a practical way. 
 It tries as much as possible to be interoperable leaning on the existing Java platform.
-This allows to avoid to rewrite aggregate computing libraries fro different platform, and to use the plethora of Java library.
+This allows to avoid to rewrite aggregate computing libraries for different platforms, and to use the plethora of Java libraries.
 According to the aggregate programming languages principles a Protelis program abstracts from the implementation of device capabilities, real network topology and communication technology. 
-To fill this abstraction gap Protelis requires the implementation of a back-end that provides a platform operation for every node in the system. 
-A Protelis backend require to implement:
+In order to fill this abstraction gap Protelis requires the implementation of a back-end that provides a platform operation for every node in the system. 
+A Protelis backend requires to implement:
 \begin{itemize}
-    \item \textbf{the device model}: it has to display its sensors, actuators, and capabilities provided by the hardware;
-    \item \textbf{the communication layer}: it has to perform two tasks: define the neighbourhood policy, and deliver the messages of each device to the others ones in its neighbourhood. 
+    \item \textbf{the device model}, it has to display its sensors, actuators, and capabilities provided by the hardware;
+    \item \textbf{the communication layer}, it has to perform two tasks: define the neighbourhood policy, and deliver the messages of each device to the others ones in its neighbourhood. 
 \end{itemize}
 
 \clearpage
@@ -90,11 +90,11 @@ A Protelis backend require to implement:
 \label{sec:LoRaWAN}
 
 In the context of smart-city and more in general of the IoT, it is important to have devices able of long-range communications, low battery consumption, and have the lowest possible installation, maintenance, and purchase costs.
-Low-power wide-area network~\cite{Raza2017} (LPWAN) is a type of wireless networks that allow to satisfy the first two requirements.
+Low-power wide-area network~\cite{Raza2017} (LPWAN) is a type of wireless networks that allows to satisfy the first two requirements.
 Typically devices for this type of networks can communicate in a range spanning from a few hundred meters in urban areas to over 10 Km in open-spaces areas.
 These networks do not only allow to satisfy the first two requirements, but they also contain the costs as composition of three factors:
 \begin{itemize}
-    \item lightweight protocols allow for using devices with simple hardware and cheap;
+    \item lightweight protocols, which allow for using devices with simple hardware and cheap;
     \item use of licence-free band frequency with no cost for network occupation;
     \item low power consumption allowing devices to run for years with a small battery.
 \end{itemize}
@@ -211,5 +211,5 @@ At the end of each simulation is possible to export different information for mo
 
 Nowadays, the simulator is used mainly to simulate self-adaptive applications in large scenarios to increase the number of transmissions correctly delivered to at least one gateway reducing the energy consumption from the motes.
 
-\paragraph{Concluding remarks.} This chapter introduced the aggregate computing paradigm, presenting its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it introduced LoRaWAN, which is one of the main LPWAN protocol. 
-Finally it presented DingNet a LoRaWAN network and its simulator.
+\paragraph{Concluding remarks.} This chapter introduced the aggregate computing paradigm, discussing its benefits for pervasive and heterogeneous systems, and the language Protelis. Then it introduced LoRaWAN, which is one of the main LPWAN protocols. 
+Finally it introduced DingNet a LoRaWAN network and its simulator.
