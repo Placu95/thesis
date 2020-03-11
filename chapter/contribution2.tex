@@ -80,7 +80,7 @@ Finally, it also allows to evaluate the network behaviour with several variants 
 The simulator partially supports the managing of incoming message mote-side: it is designed only the structure to manage the \textit{MAC Commands} (special commands exchange between network server and motes for network administration) motes side.
 The architecture illustrated in \autoref{fig:consume} is designed to complete the managing of incoming messages to a LoRa mote, allowing to use all the information contained in the payload.
 \mbox{\textit{ReceivedPacketStrategy}} defines the strategy to use to store all the incoming packets and manage the pending queue of packets to consume.
-\mbox{\textit{ConsumePacketStrategy}} defines how use the information in the payload to produce a side-effect on the LoRa mote or on the environment. 
+\mbox{\textit{ConsumePacketStrategy}} defines how to use the information in the payload to produce a side-effect on the LoRa mote or on the environment. 
 Every mote can have a list of \mbox{\textit{ConsumePacketStrategy}}, which are performed in an ordered way with strategies that can use or ignore the packet.
 \autoref{fig:consume} shows two implementations of \mbox{\textit{ReceivedPacketStrategy}}, and none of \mbox{\textit{ConsumePacketStrategy}}. This because the first strategies are cross domain while the second ones are domain specific in respect of the simulated application.
 % 
@@ -120,10 +120,10 @@ This requires to specify the receiving message type during the topic subscriptio
     \label{fig:mqtt}
 \end{figure}
 
-\noindent The designed architecture is not valid only for this project, but it is reusable in different project, so it is decided to export it as external library. The library is actually available on github\footnote{\href{https://github.com/Placu95/MqttClientWrapper}{https://github.com/Placu95/MqttClientWrapper}} and a release on Maven Central Repository is planned shortly.
+\noindent The designed architecture is not valid only for this project, but it is reusable in different projects, so it is decided to export it as an external library. The library is actually available on github\footnote{\href{https://github.com/Placu95/MqttClientWrapper}{https://github.com/Placu95/MqttClientWrapper}} and a release on Maven Central Repository is planned shortly.
 
 \subsubsection{Network server}
-The network server is the entity appointed to regulate the communication between gateways and applications, but there isn't any specification that define which tasks has to perform and which is its architecture. 
+The network server is the entity appointed to regulate the communication between gateways and applications, but there isn't any specification that defines which tasks has to perform and which is its architecture. 
 Different providers propose different solutions. 
 The solution designed for the simulator is composed of an autonomous simulator entity that performs two tasks:
 \begin{enumerate}
@@ -150,7 +150,7 @@ The solution designed for the simulator is composed of an autonomous simulator e
 
 \subsection*{Time-frame simulations}
 The platform actually does not support time-frame simulations, but only single run simulations, and multiple run simulations.
-A single run simulation finishes when all the mobile LoRa motes arrive to the respective destination, while a multi run consists simply in run more time a single run simulation.
+A single run simulation finishes when all the mobile LoRa motes arrive at the respective destination, while a multi run consists simply in run more time a single run simulation.
 So, it is necessary to define a new type of simulation that satisfy the requirement.
 Another problem is the impossibility to perform simulation of more than a day dues to the actual time representation.
 \textit{Timed run} is the new type of simulation introduced to go beyond the limitations of the single run one. 
@@ -199,9 +199,9 @@ The actual file format for the sensor configuration file is \textit{toml}\footno
 
 \subsection*{Project maintainability}
 In order to automatise the dependency management, and the project build was evaluated two build tool: \textit{Apache Maven} and \textit{Gradle}.
-\textit{Gradle} is preferred to \textit{Apache Maven} for several reasons\footnote{\href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main ones are: performance, highest readability of project's configuration file due to a less verbose syntax, and better script support (with the possibility to write them in kotlin with \textit{Gradle Kotlin DSL}).
+\textit{Gradle} is preferred to \textit{Apache Maven} for several reasons\footnote{\href{https://gradle.org/maven-vs-gradle/}{https://gradle.org/maven-vs-gradle (Feb 2020)}}. The main ones are: performance, highest readability of the project's configuration file due to a less verbose syntax, and better script support (with the possibility to write them in kotlin with \textit{Gradle Kotlin DSL}).
 Instead, \textit{Travis-CI}\footnote{\href{https://travis-ci.com/}{https://travis-ci.com (Feb 2020)}} is chosen as continuous integration service to run a new build of the project and execute all its test in fresh environments after every change.
-Travis-CI is chosen because it is free, well integrated with \textit{GitHub} that host the project, and support to automatise the deployment.
+Travis-CI is chosen because it is free, well integrated with \textit{GitHub} which hosts the project, and support to automatise the deployment.
 It is configured to test the project in all the main operative systems (linux, windows, and osx) and with different java versions (11 and 12), but is not configured to automatise the deployment.
 Finally, \textit{Checkstyle}\footnote{\href{https://checkstyle.sourceforge.io/}{https://checkstyle.sourceforge.io/ (Feb 2020)}} is adopted to enforce the use of a common style in the entire project, and its execution is planned every time Travis-CI performs all the class of tests. 
 
@@ -209,7 +209,7 @@ Finally, \textit{Checkstyle}\footnote{\href{https://checkstyle.sourceforge.io/}{
 \section{Aggregate programming over a LoRa-over-MQTT network}
 \label{sec:contributionACOverDingNet}
 This section discusses the integration between the aggregate computing paradigm and a LoRa-over-MQTT network like DingNet; enabling the simulation of aggregate applications on this platform.
-In order to join these two concepts, at first is necessary to define how map the networks entities in an aggregate computing system, and second identifies potentially additional requirements or limitations for these entities.
+In order to join these two concepts, at first is necessary to define how to map the networks entities in an aggregate computing system, and second identifies potentially additional requirements or limitations for these entities.
 In the aggregate computing viewpoint, a system is composed of a set of distributed heterogeneous computational entities, called nodes. Nodes execute the same global program and communicate with a subset of them defined by a neighbourhood policy. 
 While, in a LoRaWAN network the main entities are: LoRa motes, gateways, and network server; but at application level the only interesting entities are the LoRa motes.
 So, following the aggregate vision it is natural to map each LoRa mote in a node that represents its digital twin (from now on called LoRa node) inside the aggregate system.
@@ -217,15 +217,15 @@ So, following the aggregate vision it is natural to map each LoRa mote in a node
 But on the other hand, they have to support communication via MQTT to enable bidirectional communication with the respective physical counterparts.
 Finally, it is necessary to analyse if all the network entities, or only some of them, can host the aggregate nodes.
 In \cite{CCNCPS2018} the authors propose a software architecture to enable the execution of aggregate computing programs on LoRa motes, but after evaluations of the proposed solution, they identify some issues due to the physical limitations of the communication technology. 
-These issues do not allow to execute aggregate computing program directly on the LoRa motes, but they are not valid for the others network entities and there is any paper that identifies others possible issues.
-Even if all the LoRaWAN network entities excluded the motes can host the aggregate node (LoRa nodes or others types of nodes), it is important to specify a limitation for the LoRa nodes. 
+These issues do not allow to execute aggregate computing program directly on the LoRa motes, but they are not valid for the other network entities and there is any paper that identifies others possible issues.
+Even if all the LoRaWAN network entities excluded the motes can host the aggregate node (LoRa nodes or other types of nodes), it is important to specify a limitation for the LoRa nodes. 
 The LoRa nodes can interact with the respective LoRa mote only following the interaction schema defined from the LoRa-over-MQTT networks. 
 For example, if a LoRa node is hosted by a LoRa gateway, that receives directly the transmissions of the respective LoRa mote, it cannot receive directly the packet, but it has to wait that the packet is published on the MQTT broker.
 
 \subsection{Integration of Protelis with DingNet}
 \label{sec:PoverD}
 % The following subsection presents the software architecture designed to support the LoRa nodes inside an aggregate computing system defined in \textit{Protelis}.
-The only things to do to enable the develop of Protelis applications over the DingNet network is to satisfy the requirement previously identified.
+The only things to do to enable the development of Protelis applications over the DingNet network is to satisfy the requirement previously identified.
 That requirement represents a specific capability of this type of nodes and Protelis defines a single place appointed to host it, the \mbox{\textit{ExecutionContext}}.
 \autoref{fig:execContext} shows the model of the \mbox{\textit{ExecutionContext}} designed for the LoRa nodes. 
 
@@ -255,7 +255,7 @@ Protelis applications with the model illustrated in \autoref{fig:appP} are not o
     \label{fig:appP}
 \end{figure}
 % 
-\noindent In order to execute Protelis applications on the top of DingNet simulator, enabling the simulation of Protelis applications composed of LoRa nodes, is necessary one last small operation: unify the concept of time. 
+\noindent In order to execute Protelis applications on the top of DingNet simulator, enabling the simulation of Protelis applications composed of LoRa nodes, one last small operation is necessary: unify the concept of time. 
 This operation is necessary because the behaviour of every Protelis node depends also from the time in which their execution is scheduled, and the LoRa packets are received.
 To do this it is sufficient wrapping the \mbox{\textit{LoRaNodeExecutionContext}} using the simulator time concept.
 

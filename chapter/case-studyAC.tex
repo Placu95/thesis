@@ -3,13 +3,13 @@
 \label{sec:case-staudyAC}
 
 
-Nowadays air pollution is a very common problem of cities of all the world.
+Nowadays air pollution is a very common problem of cities of all over the world.
 Two of the main strategies used to reduce the emission of polluting gas are traffic bans in strategic city's areas, and maximum temperature allowed in public and private building heating.
 
 In this context we want to realise a monitoring system for the air quality based on the CAQI index, which is able to apply strategies to maintain under control the air pollution level.
 The sensor network is composed of a set of fixed sensors scattered around the city, and mobile sensors placed on public transports (like bus or public bicycles).
 All the sensor devices are equipped at least with a sensor for the particular matter 10 (PM10).
-The idea is to displace strategically the fixed sensors to achieve a good city coverage, using mobile sensors for its refinement and to reduce reading errors of the fixed ones.
+The idea is to displace strategically the fixed sensors to achieve good city coverage, using mobile sensors for its refinement and to reduce reading errors of the fixed ones.
 
 In a first step to reduce air pollution it has been chosen to control the maximum temperature allowed for the heating of buildings.
 The idea is to allow the system to manage the building heating systems control devices (from now on building devices). So the system can set the maximum reachable temperature based on pollution level of its area.
@@ -22,7 +22,7 @@ The same policy can be adopted for the Internet connection, this allows to avoid
 
 Aggregate computing is a good approach for this system for several reasons.
 First of all, it is a heterogeneous system composed for at least two types of devices (sensor and building device) with different capabilities like connectivity, computational resources, and their interaction with the environment. 
-Furthermore it is composed from an high number of devices (one device building for each house of the city, a set of fixed sensors, and a set of mobile ones) so scalability can be a problem. But with aggregate computing is possible to solve it scaling horizontally and moving the computational node in different network devices without the need to change the program.
+Furthermore it is composed of an high number of devices (one device building for each house of the city, a set of fixed sensors, and a set of mobile ones) so scalability can be a problem. But with aggregate computing is possible to solve it scaling horizontally and moving the computational node in different network devices without the need to change the program.
 \autoref{fig:caseStudyAC} shows a high level architecture of the system.
 \begin{figure}[h]
     \centering
@@ -30,7 +30,7 @@ Furthermore it is composed from an high number of devices (one device building f
     \caption[High level architecture of the system (case study 2)]{High level architecture of the system}
     \label{fig:caseStudyAC}
 \end{figure}
-\\Designing the system with the aggregate computing is important to model the two different kind of devices and the communication layer of the aggregate nodes.
+\\Designing the system with aggregate computing is important to model the two different kinds of devices and the communication layer of the aggregate nodes.
 
 \subsection*{Sensors and building devices models}
 The sensor devices are LoRa motes, so they are mapped in \mbox{\textit{Mote}} inside DingNet, while, according to \cref{sec:PoverD}, in the aggregate application they can be mapped in simple \mbox{\textit{ProtelisLoRaNode}}.
@@ -72,17 +72,17 @@ This policy is chosen considering the application domain, in fact the behaviour 
 MQTT is chosen to implement the \mbox{\textit{NetworkManager}} and enable the communication between Protelis nodes.
 MQTT is chosen because it is a lightweight protocol and enables devices to send the same message to more devices with only one communication.
 This is very important in a large scale system where the nodes are displaced in many places and the connectivity can go down. \\
-This system is composed also from mobile nodes and when one node change position its neighbours can change, as the neighbourhood of other nodes. 
+This system is composed also of mobile nodes and when one node change position its neighbours can change, as the neighbourhood of other nodes. 
 So the definition of the neighbourhood cannot be done only at configuration time, but it has to performed also after.
 The \mbox{\textit{NeighborhoodManager}} is an autonomous entity defined to manage the neighbourhood of all the nodes.
-It receives the update of the node position, recomputes the neighbourhoods, and communicates their to all the nodes. 
+It receives the update of the node position, recomputes the neighbourhoods, and communicates them to all the nodes. 
 This entity allows also to modify the composition of the system at run-time, adding or removing entities with all the neighbourhood updated automatically.
 
 \subsection{Protelis program}
 After discussing the design of the Protelis back-end, this section introduces the Protelis program for the global behaviour of the system. 
 The program, visible in \autoref{lst:program}, requires only 25 lines of code.
 Methods \mbox{\textit{decreaseTemp}} and \mbox{\textit{increaseTemp}} modify the temperature of the building devices of a delta temperature every half an hour.
-These methods are build on top of the function \mbox{\textit{cyclicFunction}}, which is contained in the developer API of the aggregate stack.
+These methods are built on top of the function \mbox{\textit{cyclicFunction}}, which is contained in the developer API of the aggregate stack.
 Lines 16 - 23 first create a computational field of sensed values and distances from the respective sensor. 
 Then they manipulate it defining a field of maximum temperature allowed for each device based on CAQI index.
 The final part of the program defines the target temperature for each device and selects the correct method to achieve it. 
@@ -133,8 +133,8 @@ X is its current temperature, Y is its desired temperature, and Z
 % 
 is its maximum reachable temperature based on pollution level.
 The three snapshots show how the pollution changed during the five days of simulation, and how the building maximum reachable temperature is adapted consequently.
-In particular the building in the north of the city has always the desired temperature greater then the maximum reachable. 
-The building in the centre of the city has first the desired temperature greater then the maximum reachable, but after the pollution change it is the opposite and the building reaches its desired temperature.
-Finally, the building in the south has always the desired temperature lower then the maximum reachable.
+In particular the building in the north of the city has always the desired temperature greater than the maximum reachable. 
+The building in the centre of the city has first the desired temperature greater than the maximum reachable, but after the pollution change it is the opposite and the building reaches its desired temperature.
+Finally, the building in the south has always the desired temperature lower than the maximum reachable.
 
 
