@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \label{chap:introduction}
-The every day environment we are immersed in is pervaded by devices capable of computing and communicating.
+The everyday environment we are immersed in is pervaded by devices capable of computing and communicating.
 % This situation leads to design smart-environments like smart-cities, smart-homes, smart-hospitals, and so on.
 % dato che abbiamo questi dispositivi diventa possible pensare ad amb più intelligenti che a seconda della scala
 Devices with these capabilities enable to think and design smart-environments, that accordingly to the domain and scale of the application can be smart-cities, smart-homes, smart-hospitals, and so on.
@@ -16,9 +16,9 @@ One class of approaches proposes the usage of unifying middlewares.
 The devices applications are supposed to leverage it in order to be able to communicate with each other.
 One example is Sentilo\footnote{\href{http://www.sentilo.io}{http://www.sentilo.io}}, a cross platform middleware designed for the smart-city of Barcelona.
 It provides a simple REST interface to send and receive sensor data, and a set of core modules to govern the system, like real time storage, and network security. 
-Its architecture is extendible and allows horizontal scalability from single servers to cluster.
+Its architecture is extendible and allows horizontal scalability from single servers to clusters.
 A different take on the problem is proposed by global to local paradigms.
-These paradigms do not focus on programming single device and on their communication, but they try to interpret the whole system as a single computational machine with a space-time extension and to program it.
+These paradigms do not focus on programming single devices and on their communication, but they try to interpret the whole system as a single computational machine with a space-time extension and to program it.
 Aggregate computing~\cite{BealIEEEComputer2015} is one of these paradigms and proposes a devoted language.
 The language considers the entire set of system devices as a single computational machine; further, it abstracts from the specific network protocols used at low level.
 % paradigmi che invece di concentrarsi sulla programmazione dei singoli dispositivi e della loro comunicazione, ma cercano di interpretare l'intero sistemo come una macchina con una estensione spazio temporale e cercano di programmare quella macchina li.
@@ -27,7 +27,7 @@ The language considers the entire set of system devices as a single computationa
 The behaviour of a complex pervasive system, and of an aggregate system as well, cannot be tested on a single machine; at the same time, testing in the real world is usually inconvenient, complex, and expensive, or even straightforwardly impossible.
 A partial solution to test the behaviour of a system prior to deployment is via simulation.
 There are several simulators that aim to simulate Internet-of-Things (IoT) systems.
-These simulators can capture different levels of abstractions and be generic or specific for some application domains.
+These simulators can capture different levels of abstraction and be generic or specific for some application domains.
 Generally, the more you increase the flexibility of the simulator, the more you pay in performance or lose in the proximity between the real system and the executed model.
 % esistono diversi simulatori che si pongono come obbiettivo quello di simulare sistemi IoT.
 % questi simulatori possono catturare diversi livelli di astrazioni o essere generici o specifici per qualche domincio, tendenzialmente più si alza la flessibilità del simulatore si paga in performance o si perde in vicinanza tra il sistema reale e il modello eseguito 
@@ -41,7 +41,7 @@ The purpose of this thesis is to allow the simulation of aggregate programs on a
 To do so two main activities will be performed: 
 \begin{itemize}
     \item design and implementation of a LoRaWAN network platform for the Protelis~\cite{PianiniSAC2015} programming language;
-    \item design and implement a connection layer between the existing DingNet simulator and the above mention platform for the execution of Protelis program.
+    \item design and implement a connection layer between the existing DingNet simulator and the above mentioned platform for the execution of Protelis program.
 \end{itemize}
 
 %
@@ -51,8 +51,8 @@ Accordingly, the reminder of this thesis is structured as follows.
 %
 \Cref{chap:background} provides an overview of the aggregate computing paradigm, \mbox{LoRaWAN} protocol, and the DingNet simulator.
 % 
-\Cref{chap:contribution} exposes the application layer and other features, which improve DingNet adding the support to execute applications over LoRaWAN, and the work done to allow the execution of Protelis application over the LoRaWAN network.
+\Cref{chap:contribution} exposes the application layer and other features, which improves DingNet adding the support to execute applications over LoRaWAN, and the work done to allow the execution of Protelis application over the LoRaWAN network.
 %  
 \Cref{chap:case-studies} illustrates two case-studies developed in the new simulation framework.
 % 
-Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution and introducing future works and interesting topic to evaluate.
+Finally, \Cref{chap:conclusions} concludes this thesis by summarising its main contribution and introducing future works and interesting topics to evaluate.
